@@ -19,8 +19,20 @@ export default tseslint.config(
     },
   },
   {
-    files: ['src/components/ui/**/*.tsx', 'src/app/routes.tsx'],
+    files: [
+      'src/components/ui/**/*.tsx',
+      'src/components/animate-ui/**/*.tsx',
+      'src/app/routes.tsx',
+    ],
     rules: { 'react-refresh/only-export-components': 'off' },
+  },
+  {
+    // Vendored from Animate UI; kept as published.
+    files: ['src/hooks/use-controlled-state.tsx', 'src/lib/get-strict-context.tsx'],
+    rules: {
+      'react-hooks/set-state-in-effect': 'off',
+      'react-refresh/only-export-components': 'off',
+    },
   },
   prettier,
 )

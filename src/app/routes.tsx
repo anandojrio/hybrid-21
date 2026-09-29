@@ -8,6 +8,7 @@ const HistoryScreen = lazy(() => import('@/features/history/history-screen'))
 const StatsScreen = lazy(() => import('@/features/stats/stats-screen'))
 const LibraryScreen = lazy(() => import('@/features/library/library-screen'))
 const SettingsScreen = lazy(() => import('@/features/settings/settings-screen'))
+const SessionDetailScreen = lazy(() => import('@/features/sessions/session-detail-screen'))
 const DesignShowcase = import.meta.env.DEV
   ? lazy(() => import('@/features/design/design-showcase'))
   : null
@@ -24,6 +25,7 @@ export const routes: RouteObject[] = [
       { path: 'stats', element: suspend(<StatsScreen />) },
       { path: 'library', element: suspend(<LibraryScreen />) },
       { path: 'settings', element: suspend(<SettingsScreen />) },
+      { path: 'session/:sessionId', element: suspend(<SessionDetailScreen />) },
     ],
   },
   ...(DesignShowcase ? [{ path: 'design', element: suspend(<DesignShowcase />) }] : []),

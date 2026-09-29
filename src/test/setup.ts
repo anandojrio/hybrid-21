@@ -15,3 +15,16 @@ if (!window.matchMedia) {
       dispatchEvent: () => false,
     }) as MediaQueryList
 }
+
+// jsdom lacks ResizeObserver and pointer-capture APIs used by Radix/vaul.
+if (typeof window.ResizeObserver === 'undefined') {
+  window.ResizeObserver = class {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  } as unknown as typeof ResizeObserver
+}
+Element.prototype.hasPointerCapture ??= () => false
+Element.prototype.releasePointerCapture ??= () => undefined
+Element.prototype.setPointerCapture ??= () => undefined
+Element.prototype.scrollIntoView ??= () => undefined

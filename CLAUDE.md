@@ -22,6 +22,10 @@ Decided with the owner on 2026-09-29:
 - **Session icons (Lucide):** LEG Weight, RUN SportShoe, LONG Route, RACE Medal, ICE Snowflake (no hockey icon exists), PUSH BicepsFlexed, PULL Dumbbell, MOB Rotate3d, SOC Goal.
 - **Design preview:** `/design` route, development builds only.
 - **Logging UI (decided):** Mark as complete opens a full-height drawer form; status changes only after Save. Inside forms, quick single-item entries (gym exercise sets/reps/kg with "Last time", skip reason, morning check-in) use the owner-selected Animate UI Radix popover (`animate-ui.com/docs/components/radix/popover`), installed in the logging phase.
+- **Actions by date (decided):** Mark as complete / Skip workout exist only for today and past sessions; future sessions show "Planned for <date>" and no actions.
+- **Thursday either/or (decided):** one card "<run> or soccer" with "Log run" (run form) and one-tap "Played soccer" (undo toast); the other option then shows as replaced. Skip on the card records the skip on the run and covers the group.
+- **Completed ICE/SOC:** no data to edit, so the card offers "Remove completion" (with confirmation) instead of Edit result. Skipped sessions offer "Undo skip" (with confirmation).
+- **Session detail:** `/session/:id`, full screen in the type color, no tab bar; Plan keeps the selected day in `?day=` so Back returns to the same week.
 - **CSV export (decided):** two files, `sessions.csv` (one row per logged session) and `gym-exercises.csv` (one row per exercise result).
 - **Backup reminder (decided):** shown when logs exist and no backup was made in the last 7 days.
 - **Component references:** seven-day strip with icons → `week-strip.jpg`; KPI tiles, big numbers with small decimals, dot-matrix charts → `screens-colors-kpi-nav.jpg`. Adapt them to the agreed palette.

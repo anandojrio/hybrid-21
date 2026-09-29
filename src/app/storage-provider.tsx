@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 import { initStorage, StorageError, type Repositories } from '@/db'
 import { requestPersistentStorage } from '@/lib/persistent-storage'
+import { LogsProvider } from './logs-store'
 import { StorageErrorScreen } from './storage-error-screen'
 
 const RepositoriesContext = createContext<Repositories | null>(null)
@@ -57,7 +58,7 @@ export function StorageProvider({ children, init = initStorage }: StorageProvide
   }
   return (
     <RepositoriesContext.Provider value={state.repositories}>
-      {children}
+      <LogsProvider repositories={state.repositories}>{children}</LogsProvider>
     </RepositoriesContext.Provider>
   )
 }
