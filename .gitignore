@@ -30,3 +30,4 @@ test-results
 !.env.example
 .vercel
 calendar/events-plan.json
+.env*.local
