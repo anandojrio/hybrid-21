@@ -1,0 +1,105 @@
+/*
+ * Hybrid 21 design tokens. Single source for colors, radius, type and motion.
+ * Palette: owner reference (docs/design-references/palette.jpg). Light theme only.
+ * Contrast of every text/background pair below is verified in src/styles/tokens.test.ts.
+ */
+:root {
+  /* Brand palette */
+  --cool-white: #d7e8fa;
+  --charcoal: #272b3a;
+  --mint: #5df9c0;
+  --ocean: #3b1eff;
+
+  /* Surfaces and ink */
+  --page: var(--cool-white);
+  --surface: #f3f8fe;
+  --surface-2: #e6f0fb;
+  --separator: #c3d6ec;
+  --ink: var(--charcoal);
+  --ink-muted: #4a5068;
+  --ink-inverse: #f3f8fe;
+  --danger: #c4231a;
+
+  /* Session types: fill + readable foreground */
+  --type-leg: #ff9f1c;
+  --type-leg-fg: #4a2a00;
+  --type-run: #3b1eff;
+  --type-run-fg: #ffffff;
+  --type-long: #1e0f99;
+  --type-long-fg: #ffffff;
+  --type-race: #ff4d3d;
+  --type-race-fg: #3a0a05;
+  --type-ice: #26c6f5;
+  --type-ice-fg: #063b4d;
+  --type-push: #ff5fa8;
+  --type-push-fg: #4a0b28;
+  --type-pull: #7c4deb;
+  --type-pull-fg: #ffffff;
+  --type-mob: #5df9c0;
+  --type-mob-fg: #0b4a38;
+  --type-soc: #c8f53b;
+  --type-soc-fg: #2f3d00;
+
+  /* Status */
+  --status-completed: #5df9c0;
+  --status-completed-fg: #0b4a38;
+  --status-modified: #ffd66b;
+  --status-modified-fg: #4a3500;
+  --status-skipped: #c3d6ec;
+  --status-skipped-fg: #272b3a;
+  --status-planned: transparent;
+  --status-planned-fg: #4a5068;
+
+  /* Shape */
+  --radius: 0.75rem;
+  --radius-group: 1.25rem;
+
+  /* Type */
+  --font-system:
+    -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    sans-serif;
+  --font-display:
+    -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 150ms;
+  --dur-base: 250ms;
+
+  /* Layout */
+  --app-max-width: 480px;
+  --nav-height: 72px;
+
+  /* shadcn/ui semantic tokens, mapped to the palette */
+  --background: var(--page);
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--surface);
+  --popover-foreground: var(--ink);
+  --primary: var(--ocean);
+  --primary-foreground: #ffffff;
+  --secondary: var(--surface-2);
+  --secondary-foreground: var(--ink);
+  --muted: var(--surface-2);
+  --muted-foreground: var(--ink-muted);
+  --accent: var(--surface-2);
+  --accent-foreground: var(--ink);
+  --destructive: var(--danger);
+  --border: var(--separator);
+  --input: var(--separator);
+  --ring: var(--ocean);
+  --chart-1: var(--ocean);
+  --chart-2: var(--mint);
+  --chart-3: var(--type-leg);
+  --chart-4: var(--type-push);
+  --chart-5: var(--type-pull);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0ms;
+    --dur-base: 0ms;
+  }
+}
