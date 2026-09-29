@@ -7,7 +7,8 @@ import { getPlanWeek, getSessionsForDate, PLAN_START, RACE_DATE } from '@/data/t
 import type { PlannedSession } from '@/domain/types'
 import { useToday } from '@/hooks/use-today'
 import { addDays, compareIsoDates, daysBetween, formatIsoDate } from '@/lib/dates'
-import { PendingLogForm } from '@/features/sessions/pending-log-form'
+import { LogForm } from '@/features/logging/log-form'
+import { MorningCheckInPrompt } from '@/features/logging/morning-check-in'
 import { DayCards } from '@/features/sessions/session-card'
 import { sessionDurationLabel } from '@/features/sessions/session-content'
 
@@ -37,6 +38,8 @@ export default function TodayScreen() {
           {daysToRace > 0 ? ` · ${daysToRace} days to race` : ''}
         </p>
       ) : null}
+
+      <MorningCheckInPrompt today={today} />
 
       {beforePlan ? (
         <ListGroup>
@@ -72,13 +75,7 @@ export default function TodayScreen() {
         </ListGroup>
       ) : null}
 
-      {formSession ? (
-        <PendingLogForm
-          session={formSession}
-          open
-          onOpenChange={(open) => !open && setFormSession(null)}
-        />
-      ) : null}
+      {formSession ? <LogForm session={formSession} onClose={() => setFormSession(null)} /> : null}
     </>
   )
 }

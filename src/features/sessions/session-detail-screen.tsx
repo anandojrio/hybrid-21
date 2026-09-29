@@ -13,7 +13,8 @@ import { getChoiceGroup } from '@/data/training-plan'
 import { useToday } from '@/hooks/use-today'
 import { formatIsoDate } from '@/lib/dates'
 import { SESSION_TYPE_META } from '@/lib/session-types'
-import { PendingLogForm } from './pending-log-form'
+import { LogForm } from '@/features/logging/log-form'
+import { CheckInSection } from '@/features/logging/morning-check-in'
 import { resultRows } from './result-summary'
 import { ChoiceActions, SessionActions } from './session-actions'
 import { sessionDurationRange, sessionSections } from './session-content'
@@ -157,6 +158,8 @@ function SessionDetail({ session }: { session: PlannedSession }) {
           </div>
         ) : null}
 
+        {state.log?.kind === 'run' ? <CheckInSection session={session} /> : null}
+
         {session.coachingNote ? (
           <ListGroup title="Coaching note">
             <ListRow title={session.coachingNote} className="[&_span]:whitespace-normal" />
@@ -175,13 +178,7 @@ function SessionDetail({ session }: { session: PlannedSession }) {
         ))}
       </div>
 
-      {formSession ? (
-        <PendingLogForm
-          session={formSession}
-          open
-          onOpenChange={(open) => !open && setFormSession(null)}
-        />
-      ) : null}
+      {formSession ? <LogForm session={formSession} onClose={() => setFormSession(null)} /> : null}
     </div>
   )
 }

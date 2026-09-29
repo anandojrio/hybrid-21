@@ -26,6 +26,8 @@ Decided with the owner on 2026-09-29:
 - **Thursday either/or (decided):** one card "<run> or soccer" with "Log run" (run form) and one-tap "Played soccer" (undo toast); the other option then shows as replaced. Skip on the card records the skip on the run and covers the group.
 - **Completed ICE/SOC:** no data to edit, so the card offers "Remove completion" (with confirmation) instead of Edit result. Skipped sessions offer "Undo skip" (with confirmation).
 - **Session detail:** `/session/:id`, full screen in the type color, no tab bar; Plan keeps the selected day in `?day=` so Back returns to the same week.
+- **Gym prefill (decided):** each exercise starts with its last logged result and is saved as-is unless changed. Exercises never logged before show "Tap to enter" and are left out until entered; when a planned (non-optional) exercise is left out, "Performed differently" turns on (status modified) unless the owner turns it off.
+- **Morning check-in (decided):** Today shows a prompt the morning after a logged run; the check-in is also available and editable on the run's detail screen (and in History).
 - **CSV export (decided):** two files, `sessions.csv` (one row per logged session) and `gym-exercises.csv` (one row per exercise result).
 - **Backup reminder (decided):** shown when logs exist and no backup was made in the last 7 days.
 - **Component references:** seven-day strip with icons → `week-strip.jpg`; KPI tiles, big numbers with small decimals, dot-matrix charts → `screens-colors-kpi-nav.jpg`. Adapt them to the agreed palette.
