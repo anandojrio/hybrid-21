@@ -10,6 +10,8 @@ export default mergeConfig(
       setupFiles: ['./src/test/setup.ts'],
       include: ['src/**/*.test.{ts,tsx}'],
       env: { TZ: 'Europe/Belgrade' },
+      // Full-app journeys type into many fields; allow for a loaded CI machine.
+      testTimeout: 15_000,
     },
   }),
 )

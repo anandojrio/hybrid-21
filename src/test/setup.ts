@@ -1,5 +1,9 @@
 import '@testing-library/jest-dom/vitest'
 import 'fake-indexeddb/auto'
+import { configure } from '@testing-library/react'
+
+// Lazy screens (e.g. Stats with Recharts) can take over a second to transform on first load.
+configure({ asyncUtilTimeout: 5000 })
 
 // jsdom has no matchMedia; motion uses it for prefers-reduced-motion.
 if (!window.matchMedia) {

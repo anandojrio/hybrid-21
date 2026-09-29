@@ -2,6 +2,7 @@ import { ChevronLeft } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router'
 import { useLogs } from '@/app/logs-store'
+import { ConfirmDialog } from '@/components/confirm-dialog'
 import { ListGroup, ListRow } from '@/components/list-group'
 import { StatusMarker } from '@/components/status-marker'
 import { Button } from '@/components/ui/button'
@@ -155,6 +156,11 @@ function SessionDetail({ session }: { session: PlannedSession }) {
                 />
               ))}
             </ListGroup>
+            {state.log.kind !== 'simple' ? (
+              <div className="mt-3">
+                <DeleteResult logId={state.log.id} sessionId={session.id} />
+              </div>
+            ) : null}
           </div>
         ) : null}
 
@@ -180,5 +186,38 @@ function SessionDetail({ session }: { session: PlannedSession }) {
 
       {formSession ? <LogForm session={formSession} onClose={() => setFormSession(null)} /> : null}
     </div>
+  )
+}
+
+function DeleteResult({ logId, sessionId }: { logId: string; sessionId: string }) {
+  const { deleteLog, deleteCheckIn, checkIns } = useLogs()
+  const [error, setError] = useState<string | undefined>()
+  const checkIn = checkIns.find((c) => c.sessionId === sessionId)
+  return (
+    <>
+      <ConfirmDialog
+        trigger={
+          <Button variant="destructive" className="w-full">
+            Delete result
+          </Button>
+        }
+        title="Delete this result?"
+        description={`The logged values${checkIn ? ' and the morning check-in' : ''} are removed. The planned session stays and goes back to planned.`}
+        confirmLabel="Delete"
+        onConfirm={async () => {
+          try {
+            await deleteLog(logId)
+            if (checkIn) await deleteCheckIn(checkIn.id)
+          } catch {
+            setError('Could not delete. Try again.')
+          }
+        }}
+      />
+      {error ? (
+        <p role="alert" className="text-danger mt-2 text-sm font-medium">
+          {error}
+        </p>
+      ) : null}
+    </>
   )
 }

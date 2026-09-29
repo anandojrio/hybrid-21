@@ -56,7 +56,7 @@ export function KpiTile({
           {emptyText}
         </span>
       ) : (
-        <span className="font-display tabular flex items-baseline" aria-hidden>
+        <span className="font-display flex items-baseline" aria-hidden>
           <span className="text-4xl leading-none font-semibold tracking-tight">{parts.whole}</span>
           {parts.fraction ? (
             <span className="text-xl leading-none font-semibold">{parts.fraction}</span>

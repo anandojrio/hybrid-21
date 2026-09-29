@@ -50,6 +50,16 @@
   --status-planned: transparent;
   --status-planned-fg: #4a5068;
 
+  /* Charts (validated with the dataviz palette checks on --surface) */
+  --chart-series-1: #3b1eff;
+  --chart-series-2: #d9650b;
+  --chart-grid: #dbe6f3;
+  --chart-zone-1: #c9cffd;
+  --chart-zone-2: #9aa3ff;
+  --chart-zone-3: #6b6dff;
+  --chart-zone-4: #3b1eff;
+  --chart-zone-5: #1e0f99;
+
   /* Shape */
   --radius: 0.75rem;
   --radius-group: 1.25rem;
