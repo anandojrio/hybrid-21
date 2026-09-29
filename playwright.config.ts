@@ -14,7 +14,8 @@ export default defineConfig({
   webServer: {
     command: 'npm run build && npm run preview -- --port 4173 --strictPort',
     url: 'http://localhost:4173',
-    reuseExistingServer: true,
+    // Always build and serve the current code; a stale preview would test an old build.
+    reuseExistingServer: false,
     timeout: 180_000,
   },
 })

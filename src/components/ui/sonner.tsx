@@ -11,8 +11,10 @@ import { Toaster as Sonner, type ToasterProps } from 'sonner'
 const Toaster = ({ ...props }: ToasterProps) => (
   <Sonner
     theme="light"
-    position="top-center"
-    offset={{ top: 'calc(env(safe-area-inset-top) + 12px)' }}
+    // Above the floating tab bar: never covers the header, and Undo is within thumb reach.
+    position="bottom-center"
+    offset={{ bottom: 'calc(var(--nav-height) + 28px + env(safe-area-inset-bottom))' }}
+    mobileOffset={{ bottom: 'calc(var(--nav-height) + 28px + env(safe-area-inset-bottom))' }}
     className="toaster group"
     icons={{
       success: <CircleCheckIcon className="size-5" />,

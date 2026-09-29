@@ -43,6 +43,7 @@ export function SessionTransitionProvider({ children }: { children: ReactNode })
   const [wipe, setWipe] = useState<Wipe | null>(null)
   const [covered, setCovered] = useState(false)
   const navigatedFor = useRef<number | null>(null)
+  const wipeCount = useRef(0)
 
   const open = useCallback<OpenSession>(
     (session, event, hash = '') => {
@@ -54,7 +55,8 @@ export function SessionTransitionProvider({ children }: { children: ReactNode })
       const x = event && event.clientX ? event.clientX : window.innerWidth / 2
       const y = event && event.clientY ? event.clientY : window.innerHeight / 2
       setCovered(false)
-      setWipe({ id: Date.now(), color: SESSION_TYPE_META[session.type].color, x, y, to })
+      wipeCount.current += 1
+      setWipe({ id: wipeCount.current, color: SESSION_TYPE_META[session.type].color, x, y, to })
     },
     [navigate, reduceMotion],
   )
