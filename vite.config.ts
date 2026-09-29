@@ -54,7 +54,7 @@ export default defineConfig({
           if (/recharts|d3-|victory|decimal\.js/.test(id)) return 'charts'
           if (/react-hook-form|@hookform|zod/.test(id)) return 'forms'
           if (/dexie/.test(id)) return 'storage'
-          if (/[\/](react|react-dom|react-router|scheduler)[\/]/.test(id)) return 'react'
+          if (/[\\/](react|react-dom|react-router|scheduler)[\\/]/.test(id)) return 'react'
           if (/motion|framer|radix|vaul|sonner|lucide/.test(id)) return 'ui'
           return undefined
         },
