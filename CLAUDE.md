@@ -11,7 +11,10 @@ Decided with the owner on 2026-09-29:
 - **Project location:** `C:\Hybrid21`.
 - **No ICS anywhere.** The app has no calendar export. Instead, Claude writes the planned sessions directly into a dedicated Google Calendar named **Hybrid21** using the Google Calendar connector (see section 19). The owner creates that calendar; the connector cannot create calendars.
 - **Design is decided together with the owner.** There is no reference design. Before building UI, Claude asks which components to use and proposes style options (fonts, palette, radius, density, shadcn preset); the owner answers with text or reference screenshots. Claude asks whenever it is unsure instead of guessing.
-- **Theme:** follows the system light/dark setting.
+- **Theme:** light only, no dark mode (revised 2026-09-29). Main backgrounds are tinted from the palette, never plain white or black.
+- **Design decisions so far:** calm and clean character; shadcn/ui **Nova** preset as the neutral base, restyled through tokens; **system font stack** (SF Pro on iPhone) with tabular numerals; **large key numbers**; **moderately rounded** shapes; RPE and pain as **sliders**; time as a single auto-formatting `hh:mm:ss` field; day bottom sheet as a swipe-to-dismiss **Drawer (vaul)**; **icon-only** bottom navigation (each tab still has an accessible label); **animations wanted**, always respecting `prefers-reduced-motion`.
+- **Palette (owner reference):** Cool White `#D7E8FA`, Charcoal (the swatch shows a dark slate, about `#272B3A`; the reference image mislabels it as `#76542C`), Lime/Mint `#5DF9C0`, Ocean Blue `#3B1EFF`. Claude may add harmonizing colors where needed (e.g. per-type colors), and proposes them before use.
+- **Google Calendar:** the Hybrid21 calendar lives on the owner's personal account. Only today and future sessions are written; a day with two sessions gets two events.
 - **Session types:** each type (`leg`, `run`, `long`, `ice`, `push`, `pull`, `mob`, `soc`, `race`) gets its own color. Color is never the only signal (always slug text and icon too).
 - **Hosting:** Vercel (owner account, connected later in the deploy phase). PWA install on iPhone requires the HTTPS deployment.
 - **Workflow:** build in phases; after each phase show the result at 390 px before continuing.
@@ -641,7 +644,7 @@ The owner decides the art direction during the design phase (section 0). Until t
 
 For MVP:
 
-- Neutral theme with CSS custom properties/design tokens
+- Theme from the owner palette via CSS custom properties/design tokens
 - Clean single-column layout
 - Bottom navigation
 - No decorative gradients, neon, glowing shapes, generic fitness hero sections, or stock imagery
@@ -651,7 +654,7 @@ For MVP:
 - Visible focus states
 - Semantic HTML
 - Reduced-motion support
-- Light and dark mode both required; follow the system setting
+- Light theme only (no dark mode)
 - Create the H21 icon as the only initial graphic asset
 
 ## 21. Error and edge cases
