@@ -1,6 +1,8 @@
 import type { MorningCheckIn, SessionLog } from '../../domain/types'
+import { createBackup, restoreBackup, type Backup, type RestoreResult } from '../backup'
 import type { HybridDatabase } from '../database'
 import type {
+  BackupRepository,
   CheckInRepository,
   MorningCheckInInput,
   PreviousExerciseResult,
@@ -125,5 +127,21 @@ export class DexieSettingsRepository implements SettingsRepository {
 
   async setLastBackupAt(at: string): Promise<void> {
     await this.db.meta.put({ key: LAST_BACKUP_KEY, value: at })
+  }
+}
+
+export class DexieBackupRepository implements BackupRepository {
+  private readonly db: HybridDatabase
+
+  constructor(db: HybridDatabase) {
+    this.db = db
+  }
+
+  create(now?: Date): Promise<Backup> {
+    return createBackup(this.db, now)
+  }
+
+  restore(backup: Backup): Promise<RestoreResult> {
+    return restoreBackup(this.db, backup)
   }
 }

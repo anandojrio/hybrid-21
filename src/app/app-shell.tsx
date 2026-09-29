@@ -4,6 +4,7 @@ import { useLocation, useNavigate, useOutlet } from 'react-router'
 import { BottomNav } from '@/components/bottom-nav/bottom-nav'
 import { OfflineIndicator } from '@/components/offline-indicator'
 import { Toaster } from '@/components/ui/sonner'
+import { UpdatePrompt } from '@/components/update-prompt'
 import { NAV_ITEMS, tabForPath } from './nav-items'
 
 /**
@@ -33,6 +34,7 @@ export function AppShell() {
   return (
     <div className="relative mx-auto flex min-h-dvh max-w-(--app-max-width) flex-col">
       <OfflineIndicator />
+      <UpdatePrompt />
       <Toaster />
       <AnimatePresence mode="popLayout" initial={false} custom={direction}>
         <motion.main

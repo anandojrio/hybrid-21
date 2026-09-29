@@ -40,13 +40,13 @@ describe('app shell', () => {
   })
 
   it('opens Settings from the header without the tab bar and goes back', async () => {
-    const router = renderApp('/stats')
+    const router = renderApp('/library')
     await userEvent.click(await screen.findByRole('link', { name: 'Settings' }))
     expect(await screen.findByRole('heading', { name: 'Settings' })).toBeInTheDocument()
     expect(screen.queryByRole('navigation', { name: 'Main' })).not.toBeInTheDocument()
     await userEvent.click(screen.getByRole('button', { name: 'Back' }))
-    expect(await screen.findByRole('heading', { name: 'Stats' })).toBeInTheDocument()
-    expect(router.state.location.pathname).toBe('/stats')
+    expect(await screen.findByRole('heading', { name: 'Library' })).toBeInTheDocument()
+    expect(router.state.location.pathname).toBe('/library')
   })
 
   it('sends unknown paths to Today', async () => {

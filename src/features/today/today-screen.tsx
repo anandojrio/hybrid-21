@@ -1,3 +1,4 @@
+import { HardDriveDownload } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { ListGroup, ListRow } from '@/components/list-group'
@@ -5,6 +6,7 @@ import { ScreenHeader } from '@/components/screen-header'
 import { SessionTypeBadge } from '@/components/session-type-badge'
 import { getPlanWeek, getSessionsForDate, PLAN_START, RACE_DATE } from '@/data/training-plan'
 import type { PlannedSession } from '@/domain/types'
+import { useBackupStatus } from '@/hooks/use-backup-status'
 import { useToday } from '@/hooks/use-today'
 import { addDays, compareIsoDates, daysBetween, formatIsoDate } from '@/lib/dates'
 import { LogForm } from '@/features/logging/log-form'
@@ -19,6 +21,7 @@ export default function TodayScreen() {
   const sessions = getSessionsForDate(today)
   const tomorrow = addDays(today, 1)
   const tomorrowSessions = getSessionsForDate(tomorrow)
+  const { reminderDue } = useBackupStatus()
   const [formSession, setFormSession] = useState<PlannedSession | null>(null)
 
   const beforePlan = compareIsoDates(today, PLAN_START) < 0
@@ -40,6 +43,17 @@ export default function TodayScreen() {
       ) : null}
 
       <MorningCheckInPrompt today={today} />
+
+      {reminderDue ? (
+        <ListGroup>
+          <ListRow
+            leading={<HardDriveDownload aria-hidden className="text-ocean size-5" />}
+            title="Back up your logs"
+            subtitle="No backup in the last 7 days"
+            onClick={() => navigate('/settings')}
+          />
+        </ListGroup>
+      ) : null}
 
       {beforePlan ? (
         <ListGroup>

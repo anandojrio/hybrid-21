@@ -1,10 +1,12 @@
 import { HybridDatabase, openDatabase } from './database'
 import {
+  DexieBackupRepository,
   DexieCheckInRepository,
   DexieSessionLogRepository,
   DexieSettingsRepository,
 } from './repositories/dexie-repositories'
 import type {
+  BackupRepository,
   CheckInRepository,
   SessionLogRepository,
   SettingsRepository,
@@ -14,6 +16,7 @@ export interface Repositories {
   sessionLogs: SessionLogRepository
   checkIns: CheckInRepository
   settings: SettingsRepository
+  backup: BackupRepository
 }
 
 export function createRepositories(db: HybridDatabase): Repositories {
@@ -21,6 +24,7 @@ export function createRepositories(db: HybridDatabase): Repositories {
     sessionLogs: new DexieSessionLogRepository(db),
     checkIns: new DexieCheckInRepository(db),
     settings: new DexieSettingsRepository(db),
+    backup: new DexieBackupRepository(db),
   }
 }
 
@@ -35,3 +39,6 @@ export async function initStorage(): Promise<{ db: HybridDatabase; repositories:
 
 export { HybridDatabase, StorageError } from './database'
 export type * from './repositories/types'
+export { backupFileName, parseBackup, serializeBackup } from './backup'
+export type { Backup, BackupSummary, RestoreResult } from './backup'
+export { buildGymCsv, buildSessionsCsv, csvFileNames } from './export-csv'

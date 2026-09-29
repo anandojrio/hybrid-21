@@ -1,3 +1,4 @@
+import type { Backup, RestoreResult } from '../backup'
 import type {
   ExerciseResult,
   IsoDate,
@@ -52,4 +53,10 @@ export interface CheckInRepository {
 export interface SettingsRepository {
   getLastBackupAt(): Promise<IsoDateTime | undefined>
   setLastBackupAt(at: IsoDateTime): Promise<void>
+}
+
+/** Full-data backup and merge-restore; the file format lives in `db/backup.ts`. */
+export interface BackupRepository {
+  create(now?: Date): Promise<Backup>
+  restore(backup: Backup): Promise<RestoreResult>
 }
