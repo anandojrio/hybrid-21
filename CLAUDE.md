@@ -13,11 +13,17 @@ Decided with the owner on 2026-09-29:
 - **Design is decided together with the owner.** There is no reference design. Before building UI, Claude asks which components to use and proposes style options (fonts, palette, radius, density, shadcn preset); the owner answers with text or reference screenshots. Claude asks whenever it is unsure instead of guessing.
 - **Theme:** light only, no dark mode (revised 2026-09-29). Main backgrounds are tinted from the palette, never plain white or black.
 - **Design decisions so far:** calm and clean character; shadcn/ui **Nova** preset as the neutral base, restyled through tokens; **system font stack** (SF Pro on iPhone) with tabular numerals; **large key numbers**; **moderately rounded** shapes; RPE and pain as **sliders**; time as a single auto-formatting `hh:mm:ss` field; day bottom sheet as a swipe-to-dismiss **Drawer (vaul)**; **icon-only** bottom navigation (each tab still has an accessible label); **animations wanted**, always respecting `prefers-reduced-motion`.
-- **Palette (owner reference):** Cool White `#D7E8FA`, Charcoal (the swatch shows a dark slate, about `#272B3A`; the reference image mislabels it as `#76542C`), Lime/Mint `#5DF9C0`, Ocean Blue `#3B1EFF`. Claude may add harmonizing colors where needed (e.g. per-type colors), and proposes them before use.
+- **Palette (owner reference, `docs/design-references/palette.jpg`):** Cool White `#D7E8FA`, Charcoal `#272B3A` (use the color shown in the swatch, not the mislabeled hex in the image), Lime/Mint `#5DF9C0`, Ocean Blue `#3B1EFF`. Claude may add harmonizing colors where needed and proposes them before use.
+- **Session type colors (approved):** LEG `#FF9F1C`, RUN `#3B1EFF`, LONG `#1E0F99`, RACE `#FF4D3D`, ICE `#26C6F5`, PUSH `#FF5FA8`, PULL `#8B5CF6`, MOB `#5DF9C0`, SOC `#C8F53B`. Text on each uses a dark shade of the same hue, or white on RUN/LONG/PULL.
+- **Layout:** option A, iOS-style grouped lists (rows inside rounded groups on the Cool White background), not separate cards.
+- **Session detail screens are themed in their session type color** (e.g. a RUN detail is an Ocean Blue screen), like the colored screens in `docs/design-references/screens-colors-kpi-nav.jpg`.
+- **Component references:** bottom navigation → `screens-colors-kpi-nav.jpg` and `nav-pill.jpg`; seven-day strip with icons → `week-strip.jpg`; KPI tiles, big numbers with small decimals, dot-matrix charts → `screens-colors-kpi-nav.jpg`. Adapt them to the agreed palette.
+- **Animation library:** `motion` (Framer Motion) is approved; animations are tuned in a later polish pass.
+- **PULL high-fatigue and race-week variants:** the owner has none. Do not invent them; only PUSH has the fatigue contingency from section 10.
 - **Google Calendar:** the Hybrid21 calendar lives on the owner's personal account. Only today and future sessions are written; a day with two sessions gets two events.
 - **Session types:** each type (`leg`, `run`, `long`, `ice`, `push`, `pull`, `mob`, `soc`, `race`) gets its own color. Color is never the only signal (always slug text and icon too).
 - **Hosting:** Vercel (owner account, connected later in the deploy phase). PWA install on iPhone requires the HTTPS deployment.
-- **Workflow:** build in phases; after each phase show the result at 390 px before continuing.
+- **Workflow:** build in phases; after each phase show the result at 390 px before continuing. At every phase start, tell the owner which phase is starting and which phase is planned next; ask about anything the next phase needs clarified right away.
 
 ## 1. Product constraints
 
@@ -346,7 +352,7 @@ Alternatives:
 - Pushdown: cross-body extension, machine dip, close-grip push-up
 - Shrug: cable or trap-bar shrug
 
-High-fatigue and race-week variants must exist as read-only coaching alternatives, not automatic plan mutations.
+Coaching alternatives are read-only and never mutate the plan automatically. The owner has no PULL high-fatigue or race-week variants; do not invent them (section 0).
 
 ## 11. Mobility and core
 
@@ -636,7 +642,8 @@ Claude populates the owner's **Hybrid21** Google Calendar through the Google Cal
 - Titles such as `LEG · Leg Strength`, `RUN · Easy 35 min`, `ICE · Ice Hockey`, `PUSH · Upper Body`, `PULL · Upper Body`, `MOB · Mobility + Core A`, `RACE · Half Marathon`; the either/or Thursday shows as e.g. `RUN/SOC · Easy 30 min or Soccer`.
 - Concise description including the stable session ID.
 - Show the owner a preview (count, date range, sample events) and get approval before writing.
-- Keep a committed mapping `calendar/google-events.json` (session ID → Google event ID) so re-syncs update instead of duplicating.
+- Keep a committed mapping `calendar/google-events.json` (event key → Google event ID, date, title, colorId) so re-syncs update instead of duplicating. A unit test fails if the plan and this mapping drift apart.
+- **Status (2026-09-29):** synced. 97 events from 2026-09-29 to 2026-12-12 in the Hybrid21 calendar (owner's personal account). To change the calendar later: run `npm run calendar:events -- --from <date>`, then update or delete the affected events by their IDs from the mapping (never create a second copy), and update the mapping file.
 
 ## 20. Temporary design requirements
 

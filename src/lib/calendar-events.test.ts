@@ -1,5 +1,22 @@
+import syncedCalendar from '../../calendar/google-events.json'
 import { PLANNED_SESSIONS } from '../data/training-plan'
 import { deriveCalendarEvents } from './calendar-events'
+
+describe('Hybrid21 Google Calendar mapping', () => {
+  it('matches the plan exactly: same keys, dates and titles as the synced events', () => {
+    const derived = deriveCalendarEvents(PLANNED_SESSIONS, { from: syncedCalendar.syncedFrom })
+    const synced = syncedCalendar.events as Record<
+      string,
+      { eventId: string; date: string; summary: string }
+    >
+    expect(Object.keys(synced).sort()).toEqual(derived.map((e) => e.key).sort())
+    for (const e of derived) {
+      expect(synced[e.key], e.key).toMatchObject({ date: e.date, summary: e.summary })
+    }
+    const eventIds = Object.values(synced).map((e) => e.eventId)
+    expect(new Set(eventIds).size).toBe(eventIds.length)
+  })
+})
 
 describe('calendar event derivation', () => {
   const all = deriveCalendarEvents(PLANNED_SESSIONS)

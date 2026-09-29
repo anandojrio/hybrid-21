@@ -1,0 +1,590 @@
+{
+  "calendarName": "Hybrid21",
+  "calendarId": "30af455f194355ad48ca290c36803630c63d76ca22ccc44e1060f9cab072c5e0@group.calendar.google.com",
+  "syncedFrom": "2026-09-29",
+  "syncedAt": "2026-09-29",
+  "events": {
+    "w02-tue-run": {
+      "eventId": "80idcaqdkff20m8he34n289590",
+      "date": "2026-09-29",
+      "summary": "RUN · Easy 35 min",
+      "colorId": "9"
+    },
+    "w02-tue-mob": {
+      "eventId": "0uopajt234avo7o7e8o7f2uhcc",
+      "date": "2026-09-29",
+      "summary": "MOB · Mobility + Core B",
+      "colorId": "2"
+    },
+    "w02-wed-ice": {
+      "eventId": "29kjb935fn75jtg0nip1mi5rc0",
+      "date": "2026-09-30",
+      "summary": "ICE · Ice Hockey",
+      "colorId": "7"
+    },
+    "w02-thu-push": {
+      "eventId": "76n94chjimmjhuc92u2118sna0",
+      "date": "2026-10-01",
+      "summary": "PUSH · Upper Body",
+      "colorId": "4"
+    },
+    "w02-thu-choice": {
+      "eventId": "hjeihbv443o2h74opphsnugdi4",
+      "date": "2026-10-01",
+      "summary": "RUN/SOC · Recovery/Easy 25–30 min or Soccer",
+      "colorId": "9"
+    },
+    "w02-fri-pull": {
+      "eventId": "ntb5r8a411u2hsg0sqhjgnu104",
+      "date": "2026-10-02",
+      "summary": "PULL · Upper Body",
+      "colorId": "3"
+    },
+    "w02-sat-long": {
+      "eventId": "vkhe2s5ajc8vjrlsip6aaup7sc",
+      "date": "2026-10-03",
+      "summary": "LONG · Easy 50 min",
+      "colorId": "1"
+    },
+    "w02-sun-ice": {
+      "eventId": "sar7nq27rrhvqh4ifh9t7n628s",
+      "date": "2026-10-04",
+      "summary": "ICE · Ice Hockey",
+      "colorId": "7"
+    },
+    "w03-mon-leg": {
+      "eventId": "u0grr0tt8bso0he3qi5efke744",
+      "date": "2026-10-05",
+      "summary": "LEG · Leg Strength",
+      "colorId": "6"
+    },
+    "w03-tue-run": {
+      "eventId": "l4ajdb6bir0je8q5p47e3pjvtg",
+      "date": "2026-10-06",
+      "summary": "RUN · 3 × 5 min Steady",
+      "colorId": "9"
+    },
+    "w03-tue-mob": {
+      "eventId": "rhaq2ipl45idcka2q1o61neld0",
+      "date": "2026-10-06",
+      "summary": "MOB · Mobility + Core A",
+      "colorId": "2"
+    },
+    "w03-wed-ice": {
+      "eventId": "jcv233113qptouvk9nvkpl740k",
+      "date": "2026-10-07",
+      "summary": "ICE · Ice Hockey",
+      "colorId": "7"
+    },
+    "w03-thu-push": {
+      "eventId": "k095vspejjclsf79pli94vgkqk",
+      "date": "2026-10-08",
+      "summary": "PUSH · Upper Body",
+      "colorId": "4"
+    },
+    "w03-thu-choice": {
+      "eventId": "r6pc4j7ogp736i2n9nk8rh3p68",
+      "date": "2026-10-08",
+      "summary": "RUN/SOC · Easy 30 min or Soccer",
+      "colorId": "9"
+    },
+    "w03-fri-pull": {
+      "eventId": "tibggaeqe4hrvonopgqej4tjbo",
+      "date": "2026-10-09",
+      "summary": "PULL · Upper Body",
+      "colorId": "3"
+    },
+    "w03-sat-long": {
+      "eventId": "r0eskfkop4t1jovjr4pk6f8h8k",
+      "date": "2026-10-10",
+      "summary": "LONG · Easy 60 min",
+      "colorId": "1"
+    },
+    "w03-sun-ice": {
+      "eventId": "i9kvbjfijt2b53narv19me6t30",
+      "date": "2026-10-11",
+      "summary": "ICE · Ice Hockey",
+      "colorId": "7"
+    },
+    "w04-mon-leg": {
+      "eventId": "b88f01hb6fs0subl17uur11nns",
+      "date": "2026-10-12",
+      "summary": "LEG · Leg Strength",
+      "colorId": "6"
+    },
+    "w04-tue-run": {
+      "eventId": "ph5mm9nm83021nn4tucpq79u18",
+      "date": "2026-10-13",
+      "summary": "RUN · Easy 35 min + strides",
+      "colorId": "9"
+    },
+    "w04-tue-mob": {
+      "eventId": "uqg9cd6jns9bv7mnq8udr7nv54",
+      "date": "2026-10-13",
+      "summary": "MOB · Mobility + Core B",
+      "colorId": "2"
+    },
+    "w04-wed-ice": {
+      "eventId": "d7gpj168gje7lfaq28qoqucea4",
+      "date": "2026-10-14",
+      "summary": "ICE · Ice Hockey",
+      "colorId": "7"
+    },
+    "w04-thu-push": {
+      "eventId": "oakcppqat13kme937jeb9tpm84",
+      "date": "2026-10-15",
+      "summary": "PUSH · Upper Body",
+      "colorId": "4"
+    },
+    "w04-thu-run": {
+      "eventId": "camv96qbm5nhsgjeve3t8d63qc",
+      "date": "2026-10-15",
+      "summary": "RUN · Recovery/Easy 25 min",
+      "colorId": "9"
+    },
+    "w04-fri-pull": {
+      "eventId": "mqderrk7553kneac1p6hrm6u7s",
+      "date": "2026-10-16",
+      "summary": "PULL · Upper Body",
+      "colorId": "3"
+    },
+    "w04-sat-long": {
+      "eventId": "u5g8e6sojgilnh6pf0rmug7prk",
+      "date": "2026-10-17",
+      "summary": "LONG · Easy 50 min",
+      "colorId": "1"
+    },
+    "w04-sun-ice": {
+      "eventId": "obknecgtqvcbm4ts6ku2eg3anc",
+      "date": "2026-10-18",
+      "summary": "ICE · Ice Hockey",
+      "colorId": "7"
+    },
+    "w05-mon-leg": {
+      "eventId": "gb9robbkdpnpq3q5saulvtmnjg",
+      "date": "2026-10-19",
+      "summary": "LEG · Leg Strength",
+      "colorId": "6"
+    },
+    "w05-tue-run": {
+      "eventId": "6idlt6hc0i16gsn232m2dv76fg",
+      "date": "2026-10-20",
+      "summary": "RUN · 3 × 7 min Steady",
+      "colorId": "9"
+    },
+    "w05-tue-mob": {
+      "eventId": "6q48vkm7om161kccvbh595o83c",
+      "date": "2026-10-20",
+      "summary": "MOB · Mobility + Core A",
+      "colorId": "2"
+    },
+    "w05-wed-ice": {
+      "eventId": "df76m2mltai3a6am04ormb61ac",
+      "date": "2026-10-21",
+      "summary": "ICE · Ice Hockey",
+      "colorId": "7"
+    },
+    "w05-thu-push": {
+      "eventId": "rnsf9v9ptq54kvttf34ah43hec",
+      "date": "2026-10-22",
+      "summary": "PUSH · Upper Body",
+      "colorId": "4"
+    },
+    "w05-thu-choice": {
+      "eventId": "2q190e1pajkpou7a9gp60nfr4c",
+      "date": "2026-10-22",
+      "summary": "RUN/SOC · Easy 30–35 min or Soccer",
+      "colorId": "9"
+    },
+    "w05-fri-pull": {
+      "eventId": "ul8j3bfruc5tra0mbrko3o98go",
+      "date": "2026-10-23",
+      "summary": "PULL · Upper Body",
+      "colorId": "3"
+    },
+    "w05-sat-long": {
+      "eventId": "cuoa3jhvd6r4aklga35n73qe68",
+      "date": "2026-10-24",
+      "summary": "LONG · Easy 70 min",
+      "colorId": "1"
+    },
+    "w05-sun-ice": {
+      "eventId": "jkdimljd3s3eagpuqabdrl916s",
+      "date": "2026-10-25",
+      "summary": "ICE · Ice Hockey",
+      "colorId": "7"
+    },
+    "w06-mon-leg": {
+      "eventId": "lqur41sc4qtkjiitaajqlambck",
+      "date": "2026-10-26",
+      "summary": "LEG · Leg Strength",
+      "colorId": "6"
+    },
+    "w06-tue-run": {
+      "eventId": "bcvlabrmii6qb8ac2deqqatapk",
+      "date": "2026-10-27",
+      "summary": "RUN · 2 × 10 min Upper-steady",
+      "colorId": "9"
+    },
+    "w06-tue-mob": {
+      "eventId": "e50pv5gno2pf1t0dtocehninns",
+      "date": "2026-10-27",
+      "summary": "MOB · Mobility + Core B",
+      "colorId": "2"
+    },
+    "w06-wed-ice": {
+      "eventId": "magmup3n3q3k2ga9bdid0lm72s",
+      "date": "2026-10-28",
+      "summary": "ICE · Ice Hockey",
+      "colorId": "7"
+    },
+    "w06-thu-push": {
+      "eventId": "n2vltqec468bq7873frttf9i2k",
+      "date": "2026-10-29",
+      "summary": "PUSH · Upper Body",
+      "colorId": "4"
+    },
+    "w06-thu-choice": {
+      "eventId": "fg3epvi0q4gfc9gffi4f2e25g0",
+      "date": "2026-10-29",
+      "summary": "RUN/SOC · Easy 35 min or Soccer",
+      "colorId": "9"
+    },
+    "w06-fri-pull": {
+      "eventId": "5grfq7j67n77qeefqd3qr4qrao",
+      "date": "2026-10-30",
+      "summary": "PULL · Upper Body",
+      "colorId": "3"
+    },
+    "w06-sat-long": {
+      "eventId": "iajm0ekeqog1cve85sft2vr8u0",
+      "date": "2026-10-31",
+      "summary": "LONG · Easy 80 min",
+      "colorId": "1"
+    },
+    "w06-sun-ice": {
+      "eventId": "h0koh7jn6u20mat1cckog2nts8",
+      "date": "2026-11-01",
+      "summary": "ICE · Ice Hockey",
+      "colorId": "7"
+    },
+    "w07-mon-leg": {
+      "eventId": "ena3ssn9mtnmijerfqrtamd7q4",
+      "date": "2026-11-02",
+      "summary": "LEG · Leg Strength",
+      "colorId": "6"
+    },
+    "w07-tue-run": {
+      "eventId": "qfm1ul4fkmdvs3rnjccfbup56g",
+      "date": "2026-11-03",
+      "summary": "RUN · Easy 40 min + strides",
+      "colorId": "9"
+    },
+    "w07-tue-mob": {
+      "eventId": "aefp8aahbm31vslp78vara0pvg",
+      "date": "2026-11-03",
+      "summary": "MOB · Mobility + Core A",
+      "colorId": "2"
+    },
+    "w07-wed-ice": {
+      "eventId": "302sea70k1q12p91dn6klbttb4",
+      "date": "2026-11-04",
+      "summary": "ICE · Ice Hockey",
+      "colorId": "7"
+    },
+    "w07-thu-push": {
+      "eventId": "1irqikd2qbattdcki3iqgj2olk",
+      "date": "2026-11-05",
+      "summary": "PUSH · Upper Body",
+      "colorId": "4"
+    },
+    "w07-thu-run": {
+      "eventId": "no17d3dlrltug64irt3suv3ka4",
+      "date": "2026-11-05",
+      "summary": "RUN · Recovery/Easy 25–30 min",
+      "colorId": "9"
+    },
+    "w07-fri-pull": {
+      "eventId": "e61tjr4s8lqr54qpu7vvo0jvbg",
+      "date": "2026-11-06",
+      "summary": "PULL · Upper Body",
+      "colorId": "3"
+    },
+    "w07-sat-long": {
+      "eventId": "mafvi34koqs79lpu5lvubo967c",
+      "date": "2026-11-07",
+      "summary": "LONG · Easy 65 min",
+      "colorId": "1"
+    },
+    "w07-sun-ice": {
+      "eventId": "l6dc6ilk7ch814jghljimkdeqc",
+      "date": "2026-11-08",
+      "summary": "ICE · Ice Hockey",
+      "colorId": "7"
+    },
+    "w08-mon-leg": {
+      "eventId": "id0hp71hajjnlboin3f7p0o1eo",
+      "date": "2026-11-09",
+      "summary": "LEG · Leg Strength",
+      "colorId": "6"
+    },
+    "w08-tue-run": {
+      "eventId": "gqlpoo25g5jot7r9sm9or7sl20",
+      "date": "2026-11-10",
+      "summary": "RUN · 3 × 8 min Threshold",
+      "colorId": "9"
+    },
+    "w08-tue-mob": {
+      "eventId": "clr308dlvd6084tdj0f9a0fmbk",
+      "date": "2026-11-10",
+      "summary": "MOB · Mobility + Core B",
+      "colorId": "2"
+    },
+    "w08-wed-ice": {
+      "eventId": "3rnqbijjl754cajetvsh8fer94",
+      "date": "2026-11-11",
+      "summary": "ICE · Ice Hockey",
+      "colorId": "7"
+    },
+    "w08-thu-push": {
+      "eventId": "sb98hdtrcr93h8qevodsmvv7ug",
+      "date": "2026-11-12",
+      "summary": "PUSH · Upper Body",
+      "colorId": "4"
+    },
+    "w08-thu-run": {
+      "eventId": "cn2jo7giirvosh570cofe05ki4",
+      "date": "2026-11-12",
+      "summary": "RUN · Easy 35 min",
+      "colorId": "9"
+    },
+    "w08-fri-pull": {
+      "eventId": "1gj4bu7e66gsa3m8rj1ptm43hg",
+      "date": "2026-11-13",
+      "summary": "PULL · Upper Body",
+      "colorId": "3"
+    },
+    "w08-sat-long": {
+      "eventId": "vjk78d8pl36jivbgc7beuhsfck",
+      "date": "2026-11-14",
+      "summary": "LONG · Easy 90 min",
+      "colorId": "1"
+    },
+    "w08-sun-ice": {
+      "eventId": "qft7dhvg641sdhsqqrn4df1huk",
+      "date": "2026-11-15",
+      "summary": "ICE · Ice Hockey",
+      "colorId": "7"
+    },
+    "w09-mon-leg": {
+      "eventId": "mncrlijlkgknq49ep6na867rtk",
+      "date": "2026-11-16",
+      "summary": "LEG · Leg Strength",
+      "colorId": "6"
+    },
+    "w09-tue-run": {
+      "eventId": "fknm2jmcm6hbcv3jl020424mlg",
+      "date": "2026-11-17",
+      "summary": "RUN · 2 × 12 min HM effort",
+      "colorId": "9"
+    },
+    "w09-tue-mob": {
+      "eventId": "9u10qivd0ir34o354e8jpqv720",
+      "date": "2026-11-17",
+      "summary": "MOB · Mobility + Core A",
+      "colorId": "2"
+    },
+    "w09-wed-ice": {
+      "eventId": "opfq1o87dp4k8tp2ddvudumfeg",
+      "date": "2026-11-18",
+      "summary": "ICE · Ice Hockey",
+      "colorId": "7"
+    },
+    "w09-thu-push": {
+      "eventId": "urmg4t91gebls70bgqe6fe81m4",
+      "date": "2026-11-19",
+      "summary": "PUSH · Upper Body",
+      "colorId": "4"
+    },
+    "w09-thu-choice": {
+      "eventId": "5nq2oa6e3m0tndlctm715q1ejk",
+      "date": "2026-11-19",
+      "summary": "RUN/SOC · Easy 35–40 min or Soccer",
+      "colorId": "9"
+    },
+    "w09-fri-pull": {
+      "eventId": "ktnulr73cta6kb2kusmm3ah67g",
+      "date": "2026-11-20",
+      "summary": "PULL · Upper Body",
+      "colorId": "3"
+    },
+    "w09-sat-long": {
+      "eventId": "3olpik3v1kac1ij8nufhb5ln48",
+      "date": "2026-11-21",
+      "summary": "LONG · Easy 95 min",
+      "colorId": "1"
+    },
+    "w09-sun-ice": {
+      "eventId": "t6ogkrg3om1rf0l69mhnolm63s",
+      "date": "2026-11-22",
+      "summary": "ICE · Ice Hockey",
+      "colorId": "7"
+    },
+    "w10-mon-leg": {
+      "eventId": "e1cu7nrf3cdgskikeq8966ksag",
+      "date": "2026-11-23",
+      "summary": "LEG · Leg Strength",
+      "colorId": "6"
+    },
+    "w10-tue-run": {
+      "eventId": "1m9v84dmmc1e0kscei7gkl2vc8",
+      "date": "2026-11-24",
+      "summary": "RUN · 3 × 10 min HM effort",
+      "colorId": "9"
+    },
+    "w10-tue-mob": {
+      "eventId": "llcl0r1eacgl9bb1jv07rcfjrg",
+      "date": "2026-11-24",
+      "summary": "MOB · Mobility + Core B",
+      "colorId": "2"
+    },
+    "w10-wed-ice": {
+      "eventId": "m5nogn9qhi6sd0gr91vl5ongfk",
+      "date": "2026-11-25",
+      "summary": "ICE · Ice Hockey",
+      "colorId": "7"
+    },
+    "w10-thu-push": {
+      "eventId": "p6amk1le42ebbp9k6rsq8g0nbk",
+      "date": "2026-11-26",
+      "summary": "PUSH · Upper Body",
+      "colorId": "4"
+    },
+    "w10-thu-run": {
+      "eventId": "sbhsap47bceq2bg51ftcilkqdo",
+      "date": "2026-11-26",
+      "summary": "RUN · Easy 30–35 min",
+      "colorId": "9"
+    },
+    "w10-fri-pull": {
+      "eventId": "areqktv2804o1nq7ukbf8og9us",
+      "date": "2026-11-27",
+      "summary": "PULL · Upper Body",
+      "colorId": "3"
+    },
+    "w10-sat-long": {
+      "eventId": "aqa0vl37sgcr6vqmmgtm2r6sjk",
+      "date": "2026-11-28",
+      "summary": "LONG · Easy 100–105 min",
+      "colorId": "1"
+    },
+    "w10-sun-ice": {
+      "eventId": "fjmmg4mnr5l5v3dnq06toctvvk",
+      "date": "2026-11-29",
+      "summary": "ICE · Ice Hockey",
+      "colorId": "7"
+    },
+    "w11-mon-leg": {
+      "eventId": "vlqs7blgia8t7cidgb25bhujkk",
+      "date": "2026-11-30",
+      "summary": "LEG · Leg Strength",
+      "colorId": "6"
+    },
+    "w11-tue-run": {
+      "eventId": "g725dt4m7nu1mrvkjn5bmkarvk",
+      "date": "2026-12-01",
+      "summary": "RUN · 2 × 8 min HM effort",
+      "colorId": "9"
+    },
+    "w11-tue-mob": {
+      "eventId": "u7gherdh030v7m9dkqlqlrddu0",
+      "date": "2026-12-01",
+      "summary": "MOB · Mobility + Core A",
+      "colorId": "2"
+    },
+    "w11-wed-ice": {
+      "eventId": "65bufbogu9bkpls57h2av9t87g",
+      "date": "2026-12-02",
+      "summary": "ICE · Ice Hockey",
+      "colorId": "7"
+    },
+    "w11-thu-push": {
+      "eventId": "gve1kghvdsi2c572epfls00iac",
+      "date": "2026-12-03",
+      "summary": "PUSH · Upper Body",
+      "colorId": "4"
+    },
+    "w11-thu-run": {
+      "eventId": "rg4von42a30g7iiv9usdn6d8h8",
+      "date": "2026-12-03",
+      "summary": "RUN · Easy 25–30 min",
+      "colorId": "9"
+    },
+    "w11-fri-pull": {
+      "eventId": "bh1ijc90fr8shutukstkcohg4c",
+      "date": "2026-12-04",
+      "summary": "PULL · Upper Body",
+      "colorId": "3"
+    },
+    "w11-sat-long": {
+      "eventId": "r2rqrmj7qpf69t4966vp73rr9g",
+      "date": "2026-12-05",
+      "summary": "LONG · Easy 65–70 min",
+      "colorId": "1"
+    },
+    "w11-sun-ice": {
+      "eventId": "ukhhbgq1kqql14f721pj8p6hcc",
+      "date": "2026-12-06",
+      "summary": "ICE · Ice Hockey",
+      "colorId": "7"
+    },
+    "w12-mon-leg": {
+      "eventId": "gmuuc676abfkbfp29s7votkoas",
+      "date": "2026-12-07",
+      "summary": "LEG · Leg Strength",
+      "colorId": "6"
+    },
+    "w12-tue-run": {
+      "eventId": "b7rtdh04744s8e1om9thktfh7o",
+      "date": "2026-12-08",
+      "summary": "RUN · Easy 30 min + strides",
+      "colorId": "9"
+    },
+    "w12-tue-mob": {
+      "eventId": "r6ka34fnc1gphn44d8mciat5p0",
+      "date": "2026-12-08",
+      "summary": "MOB · Mobility + Core B (light)",
+      "colorId": "2"
+    },
+    "w12-wed-ice": {
+      "eventId": "tfgjpigvhj0ai8h1b1b7hi70bs",
+      "date": "2026-12-09",
+      "summary": "ICE · Ice Hockey",
+      "colorId": "7"
+    },
+    "w12-thu-push": {
+      "eventId": "qa51o05cnhfrg9q3i49bb9umio",
+      "date": "2026-12-10",
+      "summary": "PUSH · Upper Body",
+      "colorId": "4"
+    },
+    "w12-thu-run": {
+      "eventId": "r5rq188g948sup29k6u0etca6o",
+      "date": "2026-12-10",
+      "summary": "RUN · Very easy 20 min",
+      "colorId": "9"
+    },
+    "w12-fri-pull": {
+      "eventId": "t7qq6hftqdr9eo2kc3ot6ddo38",
+      "date": "2026-12-11",
+      "summary": "PULL · Upper Body",
+      "colorId": "3"
+    },
+    "w12-sat-race": {
+      "eventId": "rbjsdu4mmr4hbf4gkqemov7e70",
+      "date": "2026-12-12",
+      "summary": "RACE · Half Marathon",
+      "colorId": "11"
+    }
+  }
+}
