@@ -1,4 +1,5 @@
 import { ChevronRight } from 'lucide-react'
+import { useOpenSession } from '@/app/session-transition'
 import { Link, useSearchParams } from 'react-router'
 import { cn } from 'cn'
 import { useLogs } from '@/app/logs-store'
@@ -22,6 +23,7 @@ interface Entry {
 }
 
 export default function HistoryScreen() {
+  const openSession = useOpenSession()
   const { logs, checkIns } = useLogs()
   const [params, setParams] = useSearchParams()
   const raw = params.get('filter')
@@ -102,6 +104,10 @@ export default function HistoryScreen() {
                   <li key={log.id}>
                     <Link
                       to={`/session/${session.id}`}
+                      onClick={(e) => {
+                        e.preventDefault()
+                        openSession(session, e)
+                      }}
                       className="active:bg-surface-2 flex min-h-16 items-center gap-3 px-4 py-3"
                     >
                       <span className="flex min-w-0 flex-1 flex-col gap-1">

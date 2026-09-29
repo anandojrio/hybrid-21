@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { useNavigate, useSearchParams } from 'react-router'
+import { useSearchParams } from 'react-router'
 import { useLogs } from '@/app/logs-store'
+import { useOpenSession } from '@/app/session-transition'
 import { ListGroup, ListRow } from '@/components/list-group'
 import { ScreenHeader } from '@/components/screen-header'
 import { SessionTypeBadge } from '@/components/session-type-badge'
@@ -51,7 +52,7 @@ const clampToPlan = (date: IsoDate) =>
 
 export default function PlanScreen() {
   const today = useToday()
-  const navigate = useNavigate()
+  const openSession = useOpenSession()
   const { logs } = useLogs()
   const [params, setParams] = useSearchParams()
   const [direction, setDirection] = useState(0)
@@ -184,9 +185,9 @@ export default function PlanScreen() {
                             : sessionDurationLabel(session)
                       }
                       trailing={<StatusMarker status={status} variant="dot" />}
-                      onClick={() => {
+                      onClick={(e) => {
                         setDrawerOpen(false)
-                        navigate(`/session/${session.id}`)
+                        openSession(session, e)
                       }}
                     />
                   )

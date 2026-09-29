@@ -1,5 +1,6 @@
 import { ChevronRight } from 'lucide-react'
 import { Link } from 'react-router'
+import { useOpenSession } from '@/app/session-transition'
 import { SessionTypeBadge } from '@/components/session-type-badge'
 import { StatusMarker } from '@/components/status-marker'
 import { getChoiceGroup } from '@/data/training-plan'
@@ -50,6 +51,7 @@ function CardHeader({
   status?: SessionStatus
 }) {
   const state = useSessionState(session)
+  const openSession = useOpenSession()
   const duration = sessionDurationLabel(session)
   return (
     <div className="flex flex-col gap-2">
@@ -59,6 +61,10 @@ function CardHeader({
       </div>
       <Link
         to={`/session/${session.id}`}
+        onClick={(e) => {
+          e.preventDefault()
+          openSession(session, e)
+        }}
         className="group flex items-start justify-between gap-2 rounded-xl"
       >
         <span className="flex min-w-0 flex-col">

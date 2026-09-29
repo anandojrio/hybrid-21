@@ -1,4 +1,5 @@
 import { ChevronRight } from 'lucide-react'
+import type React from 'react'
 import type { ReactNode } from 'react'
 import { cn } from 'cn'
 
@@ -32,7 +33,7 @@ interface ListRowProps {
   subtitle?: ReactNode
   trailing?: ReactNode
   /** Renders a chevron and makes the row a button. */
-  onClick?: () => void
+  onClick?: (event: React.MouseEvent<HTMLElement>) => void
   className?: string
 }
 

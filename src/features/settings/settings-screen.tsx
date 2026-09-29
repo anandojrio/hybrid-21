@@ -3,6 +3,8 @@ import { CircleAlert, Download, FileSpreadsheet, Smartphone, Upload } from 'luci
 import { useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
 import { useLogs } from '@/app/logs-store'
+import { useMotionPreference } from '@/app/motion-preference'
+import { Segmented } from '@/components/form-controls'
 import { useRepositories } from '@/app/storage-provider'
 import { ListGroup, ListRow } from '@/components/list-group'
 import { ScreenHeader } from '@/components/screen-header'
@@ -71,6 +73,7 @@ export default function SettingsScreen() {
   const { logs, checkIns, reload } = useLogs()
   const { lastBackupAt, reminderDue, markBackedUp } = useBackupStatus()
   const persist = usePersistState()
+  const motion = useMotionPreference()
   const fileInput = useRef<HTMLInputElement>(null)
 
   const [busy, setBusy] = useState<'backup' | 'csv' | 'restore' | null>(null)
@@ -225,6 +228,23 @@ export default function SettingsScreen() {
           title={busy === 'csv' ? 'Preparing CSV…' : 'Export logs as CSV'}
           onClick={busy ? undefined : () => void exportCsv()}
         />
+      </ListGroup>
+
+      <ListGroup
+        title="Animations"
+        footer="iPhone Reduce Motion turns animations off unless you choose Always on."
+      >
+        <div className="px-4 py-3">
+          <Segmented
+            label="Animations"
+            value={motion.preference}
+            options={[
+              { value: 'system', label: 'Follow iPhone' },
+              { value: 'always', label: 'Always on' },
+            ]}
+            onChange={motion.setPreference}
+          />
+        </div>
       </ListGroup>
 
       <ListGroup title="Storage">

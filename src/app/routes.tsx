@@ -15,7 +15,8 @@ const screens = {
 
 /** Loads every screen in the background so switching tabs never waits on a chunk. */
 export function preloadScreens() {
-  for (const load of Object.values(screens)) void load()
+  // A failed preload is harmless: the screen loads again when opened.
+  for (const load of Object.values(screens)) load().catch(() => undefined)
 }
 
 const PlanScreen = lazy(screens.plan)

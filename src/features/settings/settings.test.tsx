@@ -104,4 +104,13 @@ describe('Settings', () => {
     await userEvent.click(await screen.findByRole('button', { name: /Back up your logs/ }))
     await waitFor(() => expect(router.state.location.pathname).toBe('/settings'))
   })
+
+  it('keeps animations on when chosen, even with iPhone Reduce Motion', async () => {
+    renderApp('/settings', NOW)
+    const always = await screen.findByRole('radio', { name: 'Always on' })
+    await userEvent.click(always)
+    expect(always).toHaveAttribute('aria-checked', 'true')
+    expect(localStorage.getItem('hybrid21.motion')).toBe('always')
+    localStorage.removeItem('hybrid21.motion')
+  })
 })

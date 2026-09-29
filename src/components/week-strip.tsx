@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight, Flag } from 'lucide-react'
-import { AnimatePresence, motion, useReducedMotion, type PanInfo } from 'motion/react'
+import { AnimatePresence, motion, type PanInfo } from 'motion/react'
+import { useReduceMotion } from '@/app/motion-preference'
 import { cn } from 'cn'
 import { Button } from '@/components/ui/button'
 import type { IsoDate, SessionStatus, SessionType } from '@/domain/types'
@@ -50,7 +51,7 @@ export function WeekStrip({
   direction = 0,
   className,
 }: WeekStripProps) {
-  const reduceMotion = useReducedMotion()
+  const reduceMotion = useReduceMotion()
   const weekKey = days[0]?.date ?? 'empty'
 
   const handleDragEnd = (_: unknown, info: PanInfo) => {

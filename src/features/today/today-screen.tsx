@@ -1,6 +1,7 @@
 import { HardDriveDownload } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
+import { useOpenSession } from '@/app/session-transition'
 import { ListGroup, ListRow } from '@/components/list-group'
 import { HeroChip, ScreenHeader } from '@/components/screen-header'
 import { SessionTypeBadge } from '@/components/session-type-badge'
@@ -23,6 +24,7 @@ import { sessionDurationLabel } from '@/features/sessions/session-content'
 export default function TodayScreen() {
   const today = useToday()
   const navigate = useNavigate()
+  const openSession = useOpenSession()
   const week = getPlanWeek(today)
   const sessions = getSessionsForDate(today)
   const tomorrow = addDays(today, 1)
@@ -91,7 +93,7 @@ export default function TodayScreen() {
                   ? `${sessionDurationLabel(session) ?? ''} · or football`
                   : sessionDurationLabel(session)
               }
-              onClick={() => navigate(`/session/${session.id}`)}
+              onClick={(e) => openSession(session, e)}
             />
           ))}
         </ListGroup>
