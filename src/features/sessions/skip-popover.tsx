@@ -77,7 +77,7 @@ export function SkipPopover({ onSkip, label = 'Skip workout' }: SkipPopoverProps
                 }}
                 className={cn(
                   'h-11 rounded-2xl px-3 text-[15px] font-medium transition-colors',
-                  reason === r ? 'bg-charcoal text-ink-inverse' : 'bg-surface-2 text-ink',
+                  reason === r ? 'bg-theme-strong text-theme-strong-fg' : 'bg-surface-2 text-ink',
                 )}
               >
                 {SKIP_REASON_LABEL[r]}

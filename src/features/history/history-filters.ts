@@ -5,7 +5,7 @@ export const HISTORY_FILTERS = [
   { id: 'running', label: 'Running' },
   { id: 'gym', label: 'Gym' },
   { id: 'ice', label: 'Ice' },
-  { id: 'soccer', label: 'Soccer' },
+  { id: 'football', label: 'Football' },
   { id: 'mobility', label: 'Mobility' },
   { id: 'completed', label: 'Completed' },
   { id: 'modified', label: 'Modified' },
@@ -31,7 +31,7 @@ export function matchesFilter(
       return session.type === 'leg' || session.type === 'push' || session.type === 'pull'
     case 'ice':
       return session.type === 'ice'
-    case 'soccer':
+    case 'football':
       return session.type === 'soc'
     case 'mobility':
       return session.type === 'mob'

@@ -67,7 +67,7 @@ export const RUN_COACHING_RULES: readonly string[] = [
   'Do not speed up in the final five minutes of an easy session just to improve the average.',
   'Walking for 30–60 seconds is allowed if HR rises unexpectedly or tissue discomfort develops.',
   'If knee pain exceeds 2/10, changes gait, is sharp, causes swelling/instability, or is worse next morning, reduce/stop and seek professional assessment when appropriate.',
-  'Soccer replaces the prescribed optional Thursday run; it is never added on top.',
+  'Football replaces the prescribed optional Thursday run; it is never added on top.',
   'The app never rewrites the plan based on logged data.',
 ]
 
@@ -99,7 +99,7 @@ export interface RunPlanEntry {
   date: IsoDate
   title: string
   run: RunPrescription
-  /** Thursday either/or with soccer. */
+  /** Thursday either/or with football. */
   orSoccer?: boolean
   /** Plan allows taking the day off instead. */
   offAllowed?: boolean
@@ -127,7 +127,7 @@ export const RUNNING_PLAN: readonly RunPlanEntry[] = [
     title: 'Recovery/Easy 20–25 min',
     orSoccer: true,
     run: {
-      prescription: '20–25 min recovery/easy at 125–142 bpm, 7:00–7:25/km, or soccer',
+      prescription: '20–25 min recovery/easy at 125–142 bpm, 7:00–7:25/km, or football',
       primaryIntensity: 'recovery',
       segments: [recovery(20, 25)],
       hr: RECOVERY_EASY_HR,
@@ -168,7 +168,7 @@ export const RUNNING_PLAN: readonly RunPlanEntry[] = [
     title: 'Recovery/Easy 25–30 min',
     orSoccer: true,
     run: {
-      prescription: '25–30 min recovery/easy at 125–142 bpm, or soccer',
+      prescription: '25–30 min recovery/easy at 125–142 bpm, or football',
       primaryIntensity: 'recovery',
       segments: [recovery(25, 30)],
       hr: RECOVERY_EASY_HR,
@@ -213,7 +213,7 @@ export const RUNNING_PLAN: readonly RunPlanEntry[] = [
     title: 'Easy 30 min',
     orSoccer: true,
     run: {
-      prescription: '30 min easy at 130–145 bpm, or soccer',
+      prescription: '30 min easy at 130–145 bpm, or football',
       primaryIntensity: 'easy',
       segments: [easy(30)],
       hr: EASY_HR,
@@ -294,7 +294,7 @@ export const RUNNING_PLAN: readonly RunPlanEntry[] = [
     title: 'Easy 30–35 min',
     orSoccer: true,
     run: {
-      prescription: '30–35 min easy, or soccer',
+      prescription: '30–35 min easy, or football',
       primaryIntensity: 'easy',
       segments: [easy(30, 35)],
     },
@@ -337,7 +337,7 @@ export const RUNNING_PLAN: readonly RunPlanEntry[] = [
     title: 'Easy 35 min',
     orSoccer: true,
     run: {
-      prescription: '35 min easy, or soccer',
+      prescription: '35 min easy, or football',
       primaryIntensity: 'easy',
       segments: [easy(35)],
     },
@@ -460,7 +460,7 @@ export const RUNNING_PLAN: readonly RunPlanEntry[] = [
     title: 'Easy 35–40 min',
     orSoccer: true,
     run: {
-      prescription: '35–40 min easy, or soccer',
+      prescription: '35–40 min easy, or football',
       primaryIntensity: 'easy',
       segments: [easy(35, 40)],
     },

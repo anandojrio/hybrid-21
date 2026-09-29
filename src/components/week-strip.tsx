@@ -92,10 +92,11 @@ export function WeekStrip({
           <motion.ol
             key={weekKey}
             custom={direction}
-            initial={reduceMotion ? false : { x: direction * 60, opacity: 0 }}
+            // Slides a full week, like scrolling; reduced motion keeps only a short fade.
+            initial={reduceMotion ? { opacity: 0 } : { x: `${direction * 100}%`, opacity: 0.4 }}
             animate={{ x: 0, opacity: 1 }}
-            exit={reduceMotion ? undefined : { x: direction * -60, opacity: 0 }}
-            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+            exit={reduceMotion ? { opacity: 0 } : { x: `${direction * -100}%`, opacity: 0.4 }}
+            transition={{ duration: reduceMotion ? 0.12 : 0.32, ease: [0.22, 1, 0.36, 1] }}
             drag={onPrevWeek || onNextWeek ? 'x' : false}
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={0.25}
@@ -129,7 +130,7 @@ interface DayPillProps {
 
 function DayPill({ day, selected, isToday, label, onSelect }: DayPillProps) {
   const shown = day.sessions.slice(0, MAX_ICONS)
-  const ringColor = selected ? 'var(--charcoal)' : 'var(--surface)'
+  const ringColor = selected ? 'var(--ocean)' : 'var(--surface)'
   return (
     <li className="flex min-w-0 flex-col items-center gap-1.5">
       <span aria-hidden className="text-ink-muted text-xs font-semibold">
@@ -142,8 +143,8 @@ function DayPill({ day, selected, isToday, label, onSelect }: DayPillProps) {
         aria-pressed={selected}
         className={cn(
           'relative flex h-24 w-full min-w-11 flex-col items-center justify-between rounded-full px-0.5 pt-3 pb-2 transition-colors duration-(--dur-fast)',
-          selected ? 'bg-charcoal text-ink-inverse' : 'bg-surface text-ink active:bg-surface-2',
-          isToday && !selected && 'ring-ocean ring-2 ring-inset',
+          selected ? 'bg-ocean text-white' : 'bg-surface text-ink active:bg-surface-2',
+          isToday && !selected && 'ring-charcoal ring-2 ring-inset',
           day.isRace && !selected && 'ring-type-race ring-2 ring-inset',
         )}
       >

@@ -10,18 +10,31 @@ import { ChoiceActions, SessionActions } from './session-actions'
 import { sessionDurationLabel, sessionSections } from './session-content'
 import { SessionSectionsAccordion } from './session-sections'
 import { useSessionState } from './use-session-state'
+import { SESSION_TYPE_META } from '@/lib/session-types'
+import { typeTheme } from '@/lib/type-theme'
 
 interface CardProps {
   today: IsoDate
   onLog: (session: PlannedSession) => void
 }
 
-function CardShell({ children, label }: { children: React.ReactNode; label: string }) {
+function CardShell({
+  children,
+  label,
+  session,
+}: {
+  children: React.ReactNode
+  label: string
+  session: PlannedSession
+}) {
+  const meta = SESSION_TYPE_META[session.type]
   return (
     <article
       aria-label={label}
-      className="bg-surface flex flex-col gap-4 rounded-(--radius-group) p-4"
+      style={typeTheme(session.type)}
+      className="bg-surface flex flex-col gap-4 overflow-hidden rounded-(--radius-group) p-4 pt-0"
     >
+      <div aria-hidden className="-mx-4 h-1.5" style={{ backgroundColor: meta.color }} />
       {children}
     </article>
   )
@@ -29,11 +42,11 @@ function CardShell({ children, label }: { children: React.ReactNode; label: stri
 
 function CardHeader({
   session,
-  title,
+  subtitle,
   status,
 }: {
   session: PlannedSession
-  title?: string
+  subtitle?: string
   status?: SessionStatus
 }) {
   const state = useSessionState(session)
@@ -50,8 +63,11 @@ function CardHeader({
       >
         <span className="flex min-w-0 flex-col">
           <span className="font-display text-2xl leading-tight font-bold tracking-tight">
-            {title ?? session.title}
+            {session.title}
           </span>
+          {subtitle ? (
+            <span className="text-theme-ink text-base font-semibold">{subtitle}</span>
+          ) : null}
           <span className="text-ink-muted text-sm">
             {[duration, session.goal].filter(Boolean).join(' · ')}
           </span>
@@ -65,11 +81,11 @@ function CardHeader({
 /** Today card: header, collapsible content, coaching note and actions. */
 export function SessionCard({ session, today, onLog }: CardProps & { session: PlannedSession }) {
   return (
-    <CardShell label={`${session.type.toUpperCase()} ${session.title}`}>
+    <CardShell session={session} label={`${SESSION_TYPE_META[session.type].slug} ${session.title}`}>
       <CardHeader session={session} />
       <SessionSectionsAccordion sections={sessionSections(session)} />
       {session.coachingNote ? (
-        <p className="bg-cool-white/70 text-ink rounded-2xl px-3 py-2 text-sm">
+        <p className="bg-surface-2 text-ink rounded-2xl px-3 py-2 text-sm">
           <span className="font-semibold">Coach: </span>
           {session.coachingNote}
         </p>
@@ -79,21 +95,18 @@ export function SessionCard({ session, today, onLog }: CardProps & { session: Pl
   )
 }
 
-/** Thursday either/or card: one card for the run and the optional soccer. */
+/**
+ * Thursday either/or: shown as the run, with football as an option inside its form.
+ * The group status covers both, so football counts as the Thursday session.
+ */
 export function ChoiceCard({ choiceGroupId, today, onLog }: CardProps & { choiceGroupId: string }) {
   const group = getChoiceGroup(choiceGroupId)
-  const [run, soc] = group as [PlannedSession, PlannedSession]
+  const run = group.find((s) => s.type === 'run') as PlannedSession
   const { logs } = useLogs()
   const groupStatus = resolveChoiceGroup(group, logs).status
   return (
-    <CardShell label={`Either/or: ${run.title} or soccer`}>
-      <div className="flex items-center gap-2">
-        <SessionTypeBadge type="run" />
-        <span className="text-ink-muted text-sm font-medium">or</span>
-        <SessionTypeBadge type="soc" />
-      </div>
-      <CardHeader session={run} title={`${run.title} or soccer`} status={groupStatus} />
-      <p className="text-ink-muted text-sm">Do one, never both. {soc.coachingNote}</p>
+    <CardShell session={run} label={`RUN ${run.title} or football`}>
+      <CardHeader session={run} subtitle="or football" status={groupStatus} />
       <SessionSectionsAccordion sections={sessionSections(run)} />
       <ChoiceActions choiceGroupId={choiceGroupId} today={today} onLog={onLog} />
     </CardShell>

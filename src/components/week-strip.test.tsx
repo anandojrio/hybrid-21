@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { getSessionsForDate, RACE_DATE } from '@/data/training-plan'
+import { getVisibleSessionsForDate, RACE_DATE } from '@/data/training-plan'
 import { addDays } from '@/lib/dates'
 import { WeekStrip, type WeekStripDay } from './week-strip'
 
@@ -10,7 +10,10 @@ const days = (start: string): WeekStripDay[] =>
     return {
       date,
       isRace: date === RACE_DATE,
-      sessions: getSessionsForDate(date).map((s) => ({ type: s.type, status: 'planned' as const })),
+      sessions: getVisibleSessionsForDate(date).map((s) => ({
+        type: s.type,
+        status: 'planned' as const,
+      })),
     }
   })
 
@@ -32,7 +35,7 @@ describe('WeekStrip', () => {
     ).toHaveAttribute('aria-pressed', 'true')
     expect(
       screen.getByRole('button', {
-        name: 'Thursday, October 1: PUSH planned, RUN planned, SOC planned',
+        name: 'Thursday, October 1: PUSH planned, RUN planned',
       }),
     ).toBeInTheDocument()
   })

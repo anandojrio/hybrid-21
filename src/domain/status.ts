@@ -65,7 +65,7 @@ export type LogPermission = { allowed: true } | { allowed: false; reason: string
 
 /**
  * Completing a session is blocked when another option of its either/or group is already
- * completed: soccer replaces the run and is never added on top.
+ * completed: football replaces the run and is never added on top.
  */
 export function canCompleteSession(
   session: PlannedSession,

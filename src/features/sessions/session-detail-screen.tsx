@@ -1,4 +1,4 @@
-import { ChevronLeft } from 'lucide-react'
+import { ChevronLeft, MessageSquareQuote } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router'
 import { useLogs } from '@/app/logs-store'
@@ -19,7 +19,9 @@ import { CheckInSection } from '@/features/logging/morning-check-in'
 import { resultRows } from './result-summary'
 import { ChoiceActions, SessionActions } from './session-actions'
 import { sessionDurationRange, sessionSections } from './session-content'
+import { SectionBlock } from './session-sections'
 import { useSessionState } from './use-session-state'
+import { typeTheme } from '@/lib/type-theme'
 
 /** Full session details on a screen themed in the session type color. */
 export default function SessionDetailScreen() {
@@ -63,7 +65,10 @@ function SessionDetail({ session }: { session: PlannedSession }) {
   }, [location.hash])
 
   return (
-    <div className="-mx-4 -mt-[max(12px,env(safe-area-inset-top))] flex flex-col">
+    <div
+      className="bg-page -mx-4 -mt-[max(12px,env(safe-area-inset-top))] -mb-[calc(24px+env(safe-area-inset-bottom))] flex min-h-dvh flex-col pb-[calc(24px+env(safe-area-inset-bottom))]"
+      style={typeTheme(session.type)}
+    >
       <section
         aria-labelledby="session-title"
         className="flex flex-col gap-4 px-4 pt-[max(12px,env(safe-area-inset-top))] pb-8"
@@ -79,7 +84,7 @@ function SessionDetail({ session }: { session: PlannedSession }) {
           >
             <ChevronLeft className="size-6" />
           </Button>
-          <StatusMarker status={status} />
+          <StatusMarker status={status} tone="hero" />
         </div>
         <div className="flex items-center justify-between text-sm font-semibold">
           <span className="inline-flex items-center gap-1.5">
@@ -95,6 +100,9 @@ function SessionDetail({ session }: { session: PlannedSession }) {
           className="font-display text-[34px] leading-tight font-bold tracking-tight"
         >
           {session.title}
+          {session.choiceGroupId && session.type === 'run' ? (
+            <span className="block text-xl font-semibold opacity-85">or football</span>
+          ) : null}
         </h1>
         <p className="text-[15px] opacity-90">{session.goal}</p>
         {bigNumber || hr ? (
@@ -167,20 +175,20 @@ function SessionDetail({ session }: { session: PlannedSession }) {
         {state.log?.kind === 'run' ? <CheckInSection session={session} /> : null}
 
         {session.coachingNote ? (
-          <ListGroup title="Coaching note">
-            <ListRow title={session.coachingNote} className="[&_span]:whitespace-normal" />
-          </ListGroup>
+          <aside
+            aria-label="Coaching note"
+            className="bg-theme-strong text-theme-strong-fg flex gap-3 rounded-(--radius-group) p-4"
+          >
+            <MessageSquareQuote aria-hidden className="mt-0.5 size-5 shrink-0" />
+            <p className="text-[15px] leading-snug">
+              <span className="font-bold">Coach · </span>
+              {session.coachingNote}
+            </p>
+          </aside>
         ) : null}
 
         {sessionSections(session).map((section) => (
-          <ListGroup key={section.id} title={section.title} footer={section.note}>
-            {section.items.map((item) => (
-              <div key={item.id} className="flex min-h-12 flex-col justify-center px-4 py-2.5">
-                <span className="text-ink text-base">{item.label}</span>
-                {item.detail ? <span className="text-ink-muted text-sm">{item.detail}</span> : null}
-              </div>
-            ))}
-          </ListGroup>
+          <SectionBlock key={section.id} section={section} />
         ))}
       </div>
 

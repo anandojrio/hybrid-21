@@ -11,7 +11,7 @@ function TextList({ items }: { items: string[] }) {
     <ul className="flex flex-col gap-2 px-4 py-3">
       {items.map((item) => (
         <li key={item} className="text-ink flex gap-2 text-base">
-          <span aria-hidden className="bg-ocean mt-2.5 size-1.5 shrink-0 rounded-full" />
+          <span aria-hidden className="bg-theme mt-2.5 size-1.5 shrink-0 rounded-full" />
           {item}
         </li>
       ))}

@@ -3,13 +3,28 @@ import { Navigate, type RouteObject } from 'react-router'
 import TodayScreen from '@/features/today/today-screen'
 import { AppShell } from './app-shell'
 
-const PlanScreen = lazy(() => import('@/features/plan/plan-screen'))
-const HistoryScreen = lazy(() => import('@/features/history/history-screen'))
-const StatsScreen = lazy(() => import('@/features/stats/stats-screen'))
-const LibraryScreen = lazy(() => import('@/features/library/library-screen'))
-const SettingsScreen = lazy(() => import('@/features/settings/settings-screen'))
-const SessionDetailScreen = lazy(() => import('@/features/sessions/session-detail-screen'))
-const ExerciseDetailScreen = lazy(() => import('@/features/library/exercise-detail-screen'))
+const screens = {
+  plan: () => import('@/features/plan/plan-screen'),
+  history: () => import('@/features/history/history-screen'),
+  stats: () => import('@/features/stats/stats-screen'),
+  library: () => import('@/features/library/library-screen'),
+  settings: () => import('@/features/settings/settings-screen'),
+  session: () => import('@/features/sessions/session-detail-screen'),
+  exercise: () => import('@/features/library/exercise-detail-screen'),
+}
+
+/** Loads every screen in the background so switching tabs never waits on a chunk. */
+export function preloadScreens() {
+  for (const load of Object.values(screens)) void load()
+}
+
+const PlanScreen = lazy(screens.plan)
+const HistoryScreen = lazy(screens.history)
+const StatsScreen = lazy(screens.stats)
+const LibraryScreen = lazy(screens.library)
+const SettingsScreen = lazy(screens.settings)
+const SessionDetailScreen = lazy(screens.session)
+const ExerciseDetailScreen = lazy(screens.exercise)
 const DesignShowcase = import.meta.env.DEV
   ? lazy(() => import('@/features/design/design-showcase'))
   : null

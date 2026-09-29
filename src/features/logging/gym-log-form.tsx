@@ -191,7 +191,7 @@ function ExerciseRow({
           <span
             className={cn(
               'tabular text-sm font-semibold',
-              draft.included ? 'text-ocean' : 'text-ink-muted',
+              draft.included ? 'text-theme-ink' : 'text-ink-muted',
             )}
           >
             {draftSummary(draft)}

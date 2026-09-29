@@ -5,7 +5,7 @@ import { Slider } from '@/components/ui/slider'
 import { formatPaceDigits, formatTimeDigits } from '@/lib/input-format'
 
 const inputClass =
-  'h-12 w-full rounded-2xl border border-separator bg-white px-3 text-base text-ink tabular placeholder:text-ink-muted/70 focus-visible:outline-2 focus-visible:outline-ocean aria-invalid:border-danger'
+  'h-12 w-full rounded-2xl border border-separator bg-white px-3 text-base text-ink tabular placeholder:text-ink-muted/70 focus-visible:outline-2 focus-visible:outline-theme aria-invalid:border-danger'
 
 interface FieldProps {
   label: string
@@ -195,7 +195,7 @@ export function Segmented<T extends string>({
             onClick={() => onChange(option.value)}
             className={cn(
               'min-h-11 rounded-xl px-2 text-[15px] font-medium transition-colors',
-              value === option.value ? 'bg-charcoal text-ink-inverse' : 'text-ink',
+              value === option.value ? 'bg-theme-strong text-theme-strong-fg' : 'text-ink',
             )}
           >
             {option.label}
@@ -294,7 +294,7 @@ export function SwitchRow({ label, description, checked, onChange }: SwitchRowPr
         aria-hidden
         className={cn(
           'relative h-7 w-12 shrink-0 rounded-full transition-colors',
-          checked ? 'bg-ocean' : 'bg-separator',
+          checked ? 'bg-theme' : 'bg-separator',
         )}
       >
         <span

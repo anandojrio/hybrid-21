@@ -20,6 +20,16 @@
   --ink-inverse: #f3f8fe;
   --danger: #c4231a;
 
+  /*
+   * Theme slots. Brand screens use these defaults; a screen about one session overrides
+   * them with that session type's colors (src/lib/type-theme.ts).
+   */
+  --theme-accent: var(--ocean);
+  --theme-accent-fg: #ffffff;
+  --theme-strong: var(--charcoal);
+  --theme-strong-fg: var(--ink-inverse);
+  --theme-ink: var(--ocean);
+
   /* Session types: fill + readable foreground */
   --type-leg: #ff9f1c;
   --type-leg-fg: #4a2a00;
@@ -39,6 +49,62 @@
   --type-mob-fg: #0b4a38;
   --type-soc: #c8f53b;
   --type-soc-fg: #2f3d00;
+
+  /* Session themes: page, surfaces and inks for screens about one session (AA-checked) */
+  --type-leg-page: #f1e6d8;
+  --type-leg-surface: #fff9f1;
+  --type-leg-surface-2: #fff3e1;
+  --type-leg-separator: #f3d9b4;
+  --type-leg-ink: #6c5030;
+  --type-leg-ink-muted: #6c615c;
+  --type-run-page: #d1d2fc;
+  --type-run-surface: #f3f2ff;
+  --type-run-surface-2: #e6e2ff;
+  --type-run-separator: #b5b0fd;
+  --type-run-ink: #3522c4;
+  --type-run-ink-muted: #504aa6;
+  --type-long-page: #cdcfec;
+  --type-long-surface: #f2f1f9;
+  --type-long-surface-2: #e2e0f2;
+  --type-long-separator: #ababdc;
+  --type-long-ink: #21177d;
+  --type-long-ink-muted: #464483;
+  --type-race-page: #f1d9dd;
+  --type-race-surface: #fff4f3;
+  --type-race-surface-2: #ffe8e6;
+  --type-race-separator: #f3bfbf;
+  --type-race-ink: #82393b;
+  --type-race-ink-muted: #775562;
+  --type-ice-page: #ceedfb;
+  --type-ice-surface: #f2fcfe;
+  --type-ice-surface-2: #e3f8fe;
+  --type-ice-separator: #aee5fa;
+  --type-ice-ink: #275972;
+  --type-ice-ink-muted: #49657d;
+  --type-push-page: #f1dcef;
+  --type-push-surface: #fff5fa;
+  --type-push-surface-2: #ffeaf4;
+  --type-push-separator: #f3c4e1;
+  --type-push-ink: #753e62;
+  --type-push-ink-muted: #705875;
+  --type-pull-page: #dcd9f9;
+  --type-pull-surface: #f7f4fe;
+  --type-pull-surface-2: #eee8fc;
+  --type-pull-separator: #cabff7;
+  --type-pull-ink: #553d9a;
+  --type-pull-ink-muted: #605791;
+  --type-mob-page: #d7f5f2;
+  --type-mob-surface: #f5fffb;
+  --type-mob-surface-2: #eafef7;
+  --type-mob-separator: #c0f6e9;
+  --type-mob-ink: #35615d;
+  --type-mob-ink-muted: #506973;
+  --type-soc-page: #e8f4dd;
+  --type-soc-surface: #fcfef3;
+  --type-soc-surface-2: #f8fee6;
+  --type-soc-separator: #e2f4be;
+  --type-soc-ink: #4e5b3a;
+  --type-soc-ink-muted: #5d6661;
 
   /* Status */
   --status-completed: #5df9c0;

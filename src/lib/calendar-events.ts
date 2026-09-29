@@ -83,7 +83,8 @@ export function deriveCalendarEvents(
         slug: members.map((m) => m.type).join('/'),
         date: session.date,
         endDate: addDays(session.date, 1),
-        summary: `${members.map((m) => upper(m.type)).join('/')} · ${run?.title ?? session.title} or ${others.map((o) => o.title).join(' or ')}`,
+        // The run leads; football is an option inside the run, as in the app.
+        summary: `${upper(run?.type ?? session.type)} · ${run?.title ?? session.title} or ${others.map((o) => o.title).join(' or ')}`,
         description: [
           'Either/or: do one, never both.',
           ...(run ? sessionDescription(run) : []),

@@ -6,8 +6,9 @@ import { getChoiceGroup } from '@/data/training-plan'
 import { canCompleteSession } from '@/domain/status'
 import type { GymLog, MobilityLog, PlannedSession, RunLog } from '@/domain/types'
 import { formatIsoDate } from '@/lib/dates'
+import { SwitchRow } from '@/components/form-controls'
 import { GymLogForm } from './gym-log-form'
-import { LogFormDrawer } from './log-form-drawer'
+import { LOG_FORM_ID, LogFormDrawer } from './log-form-drawer'
 import { MobilityLogForm } from './mobility-log-form'
 import { RunLogForm } from './run-log-form'
 
@@ -30,9 +31,17 @@ export function LogForm({ session, onClose }: LogFormProps) {
 
   const onDirtyChange = useCallback((value: boolean) => setDirty(value), [])
 
+  // Thursday either/or: the run form can record football instead (never both).
+  const football =
+    session.choiceGroupId && !editing
+      ? getChoiceGroup(session.choiceGroupId).find((s) => s.type === 'soc')
+      : undefined
+  const [playedFootball, setPlayedFootball] = useState(false)
+
   const onSubmitLog = async (input: SessionLogInput) => {
-    const group = session.choiceGroupId ? getChoiceGroup(session.choiceGroupId) : []
-    const permission = canCompleteSession(session, logs, group)
+    const target = input.sessionId === session.id ? session : (football ?? session)
+    const group = target.choiceGroupId ? getChoiceGroup(target.choiceGroupId) : []
+    const permission = canCompleteSession(target, logs, group)
     if (!permission.allowed) {
       setError(permission.reason)
       return
@@ -41,7 +50,9 @@ export function LogForm({ session, onClose }: LogFormProps) {
     setError(undefined)
     try {
       await saveLog(input)
-      toast.success(editing ? 'Result updated' : 'Result saved')
+      toast.success(
+        input.kind === 'simple' ? 'Football logged' : editing ? 'Result updated' : 'Result saved',
+      )
       onClose()
     } catch {
       setError('Could not save to this device. Your entries are still here; try again.')
@@ -74,13 +85,42 @@ export function LogForm({ session, onClose }: LogFormProps) {
   return (
     <LogFormDrawer
       open
+      type={session.type}
       title={`${editing ? 'Edit' : 'Log'} ${session.title}`}
-      description={`${session.type.toUpperCase()} · ${formatIsoDate(session.date, 'EEE, MMM d')} · Week ${session.week}`}
+      description={`${formatIsoDate(session.date, 'EEE, MMM d')} · Week ${session.week}`}
       dirty={dirty}
       saving={saving}
       onClose={onClose}
     >
-      {form}
+      {football ? (
+        <div className="mb-6">
+          <SwitchRow
+            label="Replaced with football"
+            description="Football replaces this run; there is nothing else to enter."
+            checked={playedFootball}
+            onChange={(checked) => {
+              setPlayedFootball(checked)
+              setDirty(checked)
+            }}
+          />
+        </div>
+      ) : null}
+      {playedFootball && football ? (
+        <form
+          id={LOG_FORM_ID}
+          onSubmit={(e) => {
+            e.preventDefault()
+            void onSubmitLog({
+              sessionId: football.id,
+              date: football.date,
+              kind: 'simple',
+              status: 'completed',
+            })
+          }}
+        />
+      ) : (
+        form
+      )}
       {error ? (
         <p role="alert" className="text-danger mt-4 text-sm font-medium">
           {error}

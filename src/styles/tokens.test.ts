@@ -35,6 +35,15 @@ describe('design tokens meet WCAG AA contrast', () => {
     expect(contrast(token(`type-${type}-fg`), token(`type-${type}`))).toBeGreaterThanOrEqual(AA)
   })
 
+  it.each(SESSION_TYPES)('%s theme inks on its tinted surfaces', (type) => {
+    for (const bg of ['page', 'surface', 'surface-2']) {
+      const background = token(`type-${type}-${bg}`)
+      expect(contrast(token(`type-${type}-ink`), background)).toBeGreaterThanOrEqual(AA)
+      expect(contrast(token(`type-${type}-ink-muted`), background)).toBeGreaterThanOrEqual(AA)
+      expect(contrast(token('ink'), background)).toBeGreaterThanOrEqual(AA)
+    }
+  })
+
   it.each(['page', 'surface', 'surface-2'])('ink and muted ink on %s', (bg) => {
     expect(contrast(token('ink'), token(bg))).toBeGreaterThanOrEqual(AA)
     expect(contrast(token('ink-muted'), token(bg))).toBeGreaterThanOrEqual(AA)

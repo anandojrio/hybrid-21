@@ -141,8 +141,8 @@ export function SessionActions({
 }
 
 /**
- * Thursday either/or: one card, "Log run" or one-tap "Played soccer".
- * Skipping records the skip on the run and covers the whole group.
+ * Thursday either/or: "Mark as complete" opens the run form, which can record football
+ * instead. Skipping records the skip on the run and covers the whole group.
  */
 export function ChoiceActions({
   choiceGroupId,
@@ -153,40 +153,39 @@ export function ChoiceActions({
   today: IsoDate
   onLog: (session: PlannedSession) => void
 }) {
-  const [run, soc] = getChoiceGroup(choiceGroupId) as [PlannedSession, PlannedSession]
-  const runState = useSessionState(run)
-  const socState = useSessionState(soc)
-  const { completeSimple, skip } = useSessionMutations()
+  const group = getChoiceGroup(choiceGroupId)
+  const run = group.find((s) => s.type === 'run') as PlannedSession
+  const football = group.find((s) => s.type === 'soc') as PlannedSession
+  const footballState = useSessionState(football)
+  const { removeLog } = useSessionMutations()
   const [error, setError] = useState<string | undefined>()
 
   if (compareIsoDates(run.date, today) > 0) return <FutureNotice date={run.date} />
-  if (runState.log || socState.log) {
-    return (
-      <div className="flex flex-col gap-3">
-        <SessionActions session={run} today={today} onLog={onLog} />
-        <SessionActions session={soc} today={today} onLog={onLog} />
-      </div>
-    )
-  }
 
-  const attempt = async (action: () => Promise<unknown>) => {
-    setError(undefined)
-    try {
-      await action()
-    } catch {
-      setError('Could not save to this device. Try again.')
-    }
-  }
+  const footballLog = footballState.log
+  if (!footballLog) return <SessionActions session={run} today={today} onLog={onLog} />
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="grid grid-cols-2 gap-2">
-        <Button onClick={() => onLog(run)}>Log run</Button>
-        <Button variant="mint" onClick={() => void attempt(() => completeSimple(soc))}>
-          Played soccer
-        </Button>
-      </div>
-      <SkipPopover onSkip={(reason, note) => attempt(() => skip(run, reason, note))} />
+      <p className="text-ink-muted text-sm font-medium">Replaced with football.</p>
+      <ConfirmDialog
+        trigger={
+          <Button variant="outline" className="w-full">
+            Remove football
+          </Button>
+        }
+        title="Remove football?"
+        description="The run goes back to planned."
+        confirmLabel="Remove"
+        onConfirm={async () => {
+          setError(undefined)
+          try {
+            await removeLog(footballLog.id)
+          } catch {
+            setError('Could not save to this device. Try again.')
+          }
+        }}
+      />
       {error ? (
         <p role="alert" className="text-danger text-sm font-medium">
           {error}

@@ -21,6 +21,11 @@
   --color-mint: var(--mint);
   --color-ocean: var(--ocean);
   --color-danger: var(--danger);
+  --color-theme: var(--theme-accent);
+  --color-theme-fg: var(--theme-accent-fg);
+  --color-theme-strong: var(--theme-strong);
+  --color-theme-strong-fg: var(--theme-strong-fg);
+  --color-theme-ink: var(--theme-ink);
 
   /* Session types */
   --color-type-leg: var(--type-leg);

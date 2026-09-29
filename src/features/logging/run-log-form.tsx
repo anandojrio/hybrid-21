@@ -117,7 +117,7 @@ export function RunLogForm({ session, log, onSubmitLog, onDirtyChange }: LogForm
       <section aria-labelledby="run-overview" className="flex flex-col gap-4">
         <h3
           id="run-overview"
-          className="text-ink-muted text-[13px] font-semibold tracking-wide uppercase"
+          className="text-theme-ink text-[13px] font-bold tracking-wide uppercase"
         >
           Overview · required
         </h3>
@@ -268,10 +268,7 @@ export function RunLogForm({ session, log, onSubmitLog, onDirtyChange }: LogForm
         aria-labelledby="run-feel"
         className="bg-surface flex flex-col gap-5 rounded-(--radius-group) p-4"
       >
-        <h3
-          id="run-feel"
-          className="text-ink-muted text-[13px] font-semibold tracking-wide uppercase"
-        >
+        <h3 id="run-feel" className="text-theme-ink text-[13px] font-bold tracking-wide uppercase">
           How it felt
         </h3>
         <Controller

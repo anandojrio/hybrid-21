@@ -54,7 +54,7 @@ function runNote(entry: RunPlanEntry): string | undefined {
   const notes: string[] = []
   if (entry.run.conditionalNote) notes.push(entry.run.conditionalNote)
   if (entry.offAllowed) notes.push('Taking the day off instead is part of the plan.')
-  if (entry.orSoccer) notes.push('Soccer replaces this run; it is never added on top.')
+  if (entry.orSoccer) notes.push('Football replaces this run; it is never added on top.')
   return notes.length ? notes.join(' ') : undefined
 }
 
@@ -151,10 +151,10 @@ function buildWeek(planWeek: PlanWeek): PlannedSession[] {
       date: thu.date,
       order: 3,
       type: 'soc',
-      title: 'Soccer',
-      goal: 'Optional soccer instead of the Thursday run.',
+      title: 'Football',
+      goal: 'Optional football instead of the Thursday run.',
       choiceGroupId,
-      coachingNote: 'Soccer replaces the easy run; it is never added on top.',
+      coachingNote: 'Football replaces the easy run; it is never added on top.',
     })
   }
 
@@ -215,6 +215,14 @@ export function getSession(id: string): PlannedSession | undefined {
 
 export function getSessionsForDate(date: IsoDate): PlannedSession[] {
   return PLANNED_SESSIONS.filter((s) => s.date === date)
+}
+
+/**
+ * Sessions as the UI lists them: an either/or Thursday shows as its run only, because
+ * football is chosen inside the run's form.
+ */
+export function getVisibleSessionsForDate(date: IsoDate): PlannedSession[] {
+  return getSessionsForDate(date).filter((s) => !(s.type === 'soc' && s.choiceGroupId))
 }
 
 export function getSessionsBetween(from: IsoDate, to: IsoDate): PlannedSession[] {

@@ -63,7 +63,7 @@ describe('History', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Skipped' }))
     expect(screen.getByText('Upper Body')).toBeInTheDocument()
     expect(screen.queryByText('Easy 35 min')).not.toBeInTheDocument()
-    await userEvent.click(screen.getByRole('button', { name: 'Soccer' }))
+    await userEvent.click(screen.getByRole('button', { name: 'Football' }))
     expect(screen.getByText('Nothing matches this filter')).toBeInTheDocument()
   })
 

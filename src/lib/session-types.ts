@@ -23,9 +23,14 @@ export interface SessionTypeMeta {
   foreground: string
 }
 
-const meta = (type: SessionType, label: string, icon: LucideIcon): SessionTypeMeta => ({
+const meta = (
+  type: SessionType,
+  label: string,
+  icon: LucideIcon,
+  slug = type.toUpperCase(),
+): SessionTypeMeta => ({
   type,
-  slug: type.toUpperCase(),
+  slug,
   label,
   icon,
   color: `var(--type-${type})`,
@@ -41,7 +46,7 @@ export const SESSION_TYPE_META: Record<SessionType, SessionTypeMeta> = {
   push: meta('push', 'Push: chest, biceps, front shoulder', BicepsFlexed),
   pull: meta('pull', 'Pull: back, triceps, rear shoulder', Dumbbell),
   mob: meta('mob', 'Mobility and core', Rotate3d),
-  soc: meta('soc', 'Soccer (optional)', Goal),
+  soc: meta('soc', 'Football (optional)', Goal, 'JOGA'),
   race: meta('race', 'Half-marathon', Medal),
 }
 

@@ -31,7 +31,7 @@
     "w02-thu-choice": {
       "eventId": "hjeihbv443o2h74opphsnugdi4",
       "date": "2026-10-01",
-      "summary": "RUN/SOC · Recovery/Easy 25–30 min or Soccer",
+      "summary": "RUN · Recovery/Easy 25–30 min or Football",
       "colorId": "9"
     },
     "w02-fri-pull": {
@@ -85,7 +85,7 @@
     "w03-thu-choice": {
       "eventId": "r6pc4j7ogp736i2n9nk8rh3p68",
       "date": "2026-10-08",
-      "summary": "RUN/SOC · Easy 30 min or Soccer",
+      "summary": "RUN · Easy 30 min or Football",
       "colorId": "9"
     },
     "w03-fri-pull": {
@@ -193,7 +193,7 @@
     "w05-thu-choice": {
       "eventId": "2q190e1pajkpou7a9gp60nfr4c",
       "date": "2026-10-22",
-      "summary": "RUN/SOC · Easy 30–35 min or Soccer",
+      "summary": "RUN · Easy 30–35 min or Football",
       "colorId": "9"
     },
     "w05-fri-pull": {
@@ -247,7 +247,7 @@
     "w06-thu-choice": {
       "eventId": "fg3epvi0q4gfc9gffi4f2e25g0",
       "date": "2026-10-29",
-      "summary": "RUN/SOC · Easy 35 min or Soccer",
+      "summary": "RUN · Easy 35 min or Football",
       "colorId": "9"
     },
     "w06-fri-pull": {
@@ -409,7 +409,7 @@
     "w09-thu-choice": {
       "eventId": "5nq2oa6e3m0tndlctm715q1ejk",
       "date": "2026-11-19",
-      "summary": "RUN/SOC · Easy 35–40 min or Soccer",
+      "summary": "RUN · Easy 35–40 min or Football",
       "colorId": "9"
     },
     "w09-fri-pull": {

@@ -2,9 +2,15 @@ import { HardDriveDownload } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { ListGroup, ListRow } from '@/components/list-group'
-import { ScreenHeader } from '@/components/screen-header'
+import { HeroChip, ScreenHeader } from '@/components/screen-header'
 import { SessionTypeBadge } from '@/components/session-type-badge'
-import { getPlanWeek, getSessionsForDate, PLAN_START, RACE_DATE } from '@/data/training-plan'
+import {
+  getPlanWeek,
+  getSessionsForDate,
+  getVisibleSessionsForDate,
+  PLAN_START,
+  RACE_DATE,
+} from '@/data/training-plan'
 import type { PlannedSession } from '@/domain/types'
 import { useBackupStatus } from '@/hooks/use-backup-status'
 import { useToday } from '@/hooks/use-today'
@@ -20,7 +26,7 @@ export default function TodayScreen() {
   const week = getPlanWeek(today)
   const sessions = getSessionsForDate(today)
   const tomorrow = addDays(today, 1)
-  const tomorrowSessions = getSessionsForDate(tomorrow)
+  const tomorrowSessions = getVisibleSessionsForDate(tomorrow)
   const { reminderDue } = useBackupStatus()
   const [formSession, setFormSession] = useState<PlannedSession | null>(null)
 
@@ -33,21 +39,23 @@ export default function TodayScreen() {
       <ScreenHeader
         title="Today"
         subtitle={`${formatIsoDate(today, 'EEEE, MMMM d')}${week ? ` · Week ${week.week}` : ''}`}
-      />
-
-      {week ? (
-        <p className="text-ink-muted -mt-3 text-sm">
-          <span className="text-ink font-semibold">Focus:</span> {week.focus}
-          {daysToRace > 0 ? ` · ${daysToRace} days to race` : ''}
-        </p>
-      ) : null}
+      >
+        {week ? (
+          <div className="flex flex-wrap items-center gap-2">
+            <p className="text-cool-white/85 min-w-0 flex-1 text-[15px]">
+              <span className="text-cool-white font-semibold">Focus:</span> {week.focus}
+            </p>
+            {daysToRace > 0 ? <HeroChip>{daysToRace} days to race</HeroChip> : null}
+          </div>
+        ) : null}
+      </ScreenHeader>
 
       <MorningCheckInPrompt today={today} />
 
       {reminderDue ? (
         <ListGroup>
           <ListRow
-            leading={<HardDriveDownload aria-hidden className="text-ocean size-5" />}
+            leading={<HardDriveDownload aria-hidden className="text-theme-ink size-5" />}
             title="Back up your logs"
             subtitle="No backup in the last 7 days"
             onClick={() => navigate('/settings')}
@@ -80,7 +88,7 @@ export default function TodayScreen() {
               title={session.title}
               subtitle={
                 session.choiceGroupId
-                  ? 'Either/or: do one, never both'
+                  ? `${sessionDurationLabel(session) ?? ''} · or football`
                   : sessionDurationLabel(session)
               }
               onClick={() => navigate(`/session/${session.id}`)}

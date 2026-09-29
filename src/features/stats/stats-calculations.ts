@@ -95,7 +95,7 @@ function isDue(session: PlannedSession, logs: readonly SessionLog[], today: IsoD
 
 /**
  * Running compliance up to `today`. An either/or Thursday counts once and is satisfied by
- * soccer; a skipped run the plan marks "or off" counts as done.
+ * football; a skipped run the plan marks "or off" counts as done.
  */
 export function runCompliance(logs: readonly SessionLog[], today: IsoDate): Compliance {
   let done = 0

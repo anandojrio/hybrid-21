@@ -13,12 +13,21 @@ export interface ContentItem {
   id: string
   label: string
   detail?: string
+  /** Prescription pieces shown as chips on exercise cards. */
+  chips?: string[]
   exerciseId?: string
 }
+
+/**
+ * How a section is drawn on the detail screen: numbered exercise cards, a timeline for
+ * things done in order (warm-up, run segments, stretching), key facts, or plain notes.
+ */
+export type SectionLayout = 'exercises' | 'sequence' | 'facts' | 'notes'
 
 export interface ContentSection {
   id: string
   title: string
+  layout: SectionLayout
   items: ContentItem[]
   note?: string
 }
@@ -82,18 +91,20 @@ function runSections(session: PlannedSession): ContentSection[] {
     : run.segments.map((segment, i) => ({ id: `seg-${i}`, ...segmentLabel(segment) }))
 
   const rules = RUN_COACHING_RULES.filter(
-    (rule) => session.choiceGroupId || !rule.startsWith('Soccer replaces'),
+    (rule) => session.choiceGroupId || !rule.startsWith('Football replaces'),
   )
   return [
     {
       id: 'plan',
       title: session.type === 'race' ? 'Race' : 'Run plan',
+      layout: 'sequence',
       items: planItems,
       note: run.prescription,
     },
     {
       id: 'targets',
       title: 'Targets',
+      layout: 'facts',
       items: [
         { id: 'hr', label: 'Heart rate', detail: `${hr.min}–${hr.max} bpm` },
         { id: 'pace', label: 'Pace guide', detail: formatPaceRange(pace) },
@@ -105,6 +116,7 @@ function runSections(session: PlannedSession): ContentSection[] {
     {
       id: 'tactics',
       title: 'Tactics',
+      layout: 'notes',
       items: rules.map((rule, i) => ({ id: `rule-${i}`, label: rule })),
     },
   ]
@@ -116,6 +128,7 @@ function gymSections(session: PlannedSession): ContentSection[] {
     {
       id: 'warm-up',
       title: template.warmUpTitle,
+      layout: 'sequence',
       items: template.warmUp.map((w) => ({
         id: w.id,
         label: w.label,
@@ -127,10 +140,12 @@ function gymSections(session: PlannedSession): ContentSection[] {
     {
       id: 'workout',
       title: template.kind === 'mobility' ? `Core ${session.coreSession ?? ''}`.trim() : 'Workout',
+      layout: 'exercises',
       items: template.exercises.map((e) => ({
         id: e.exerciseId,
         label: getExercise(e.exerciseId).name,
         detail: `${e.prescription} · rest ${e.rest}`,
+        chips: [e.prescription, `rest ${e.rest}`],
         exerciseId: e.exerciseId,
       })),
     },
@@ -139,6 +154,7 @@ function gymSections(session: PlannedSession): ContentSection[] {
     sections.push({
       id: 'cooldown',
       title: template.cooldownTitle ?? 'Cooldown',
+      layout: 'sequence',
       items: template.cooldown.map((c) => ({
         id: c.id,
         label: c.label,
@@ -151,6 +167,7 @@ function gymSections(session: PlannedSession): ContentSection[] {
     sections.push({
       id: 'technique',
       title: 'Technique notes',
+      layout: 'notes',
       items: template.techniqueNotes.map((note, i) => ({ id: `tn-${i}`, label: note })),
     })
   }
@@ -158,6 +175,7 @@ function gymSections(session: PlannedSession): ContentSection[] {
     sections.push({
       id: 'alternatives',
       title: 'Alternatives',
+      layout: 'notes',
       items: template.alternatives.map((alt, i) => ({ id: `alt-${i}`, label: alt })),
     })
   }
@@ -165,6 +183,7 @@ function gymSections(session: PlannedSession): ContentSection[] {
     sections.push({
       id: variant.id,
       title: variant.title,
+      layout: 'notes',
       items: variant.items.map((item, i) => ({ id: `${variant.id}-${i}`, label: item })),
       note: variant.summary,
     })

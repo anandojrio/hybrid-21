@@ -42,7 +42,7 @@ describe('calendar event derivation', () => {
     expect(byKey('w03-thu-push').summary).toBe('PUSH · Upper Body')
     expect(byKey('w03-fri-pull').summary).toBe('PULL · Upper Body')
     expect(byKey('w03-wed-ice').summary).toBe('ICE · Ice Hockey')
-    expect(byKey('w02-thu-choice').summary).toBe('RUN/SOC · Recovery/Easy 25–30 min or Soccer')
+    expect(byKey('w02-thu-choice').summary).toBe('RUN · Recovery/Easy 25–30 min or Football')
     expect(byKey('w02-thu-choice').sessionIds).toEqual(['w02-thu-run', 'w02-thu-soc'])
     expect(byKey('w12-sat-race').summary).toBe('RACE · Half Marathon')
     expect(byKey('w12-sat-race').description).toContain('21.1 km')

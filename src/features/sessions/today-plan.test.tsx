@@ -56,16 +56,27 @@ describe('Today', () => {
     expect(await within(card).findByText('Planned')).toBeInTheDocument()
   })
 
-  it('logs soccer with one tap on the either/or card and marks the run replaced', async () => {
+  it('records football from the Thursday run form and shows the run as replaced', async () => {
     renderAt('/', THU_OCT_1)
     const card = await screen.findByRole('article', {
-      name: 'Either/or: Recovery/Easy 25–30 min or soccer',
+      name: 'RUN Recovery/Easy 25–30 min or football',
     })
-    await userEvent.click(within(card).getByRole('button', { name: 'Played soccer' }))
-    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
-    expect(await within(card).findByText('Replaced by soccer today.')).toBeInTheDocument()
+    await userEvent.click(within(card).getByRole('button', { name: 'Mark as complete' }))
+    const form = await screen.findByRole('dialog', { name: 'Log Recovery/Easy 25–30 min' })
+    await userEvent.click(within(form).getByRole('switch', { name: /Replaced with football/ }))
+    expect(within(form).queryByLabelText(/Distance/)).not.toBeInTheDocument()
+    await userEvent.click(within(form).getByRole('button', { name: 'Save' }))
+    expect(await within(card).findByText('Replaced with football.')).toBeInTheDocument()
     expect(within(card).getByText('Completed')).toBeInTheDocument()
-    expect(within(card).queryByRole('button', { name: 'Log run' })).not.toBeInTheDocument()
+    expect(within(card).queryByRole('button', { name: 'Mark as complete' })).not.toBeInTheDocument()
+  })
+
+  it('offers football only on the Thursday either/or run', async () => {
+    renderAt('/', TUE_SEP_29)
+    const card = await screen.findByRole('article', { name: 'RUN Easy 35 min' })
+    await userEvent.click(within(card).getByRole('button', { name: 'Mark as complete' }))
+    const form = await screen.findByRole('dialog', { name: 'Log Easy 35 min' })
+    expect(within(form).queryByRole('switch', { name: /football/ })).not.toBeInTheDocument()
   })
 
   it('opens the logging form for a run instead of changing status', async () => {

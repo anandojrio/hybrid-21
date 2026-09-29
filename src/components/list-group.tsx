@@ -14,7 +14,7 @@ export function ListGroup({ title, footer, children, className }: ListGroupProps
   return (
     <section className={cn('flex flex-col gap-2', className)}>
       {title ? (
-        <h2 className="text-ink-muted px-4 text-[13px] font-semibold tracking-wide uppercase">
+        <h2 className="text-theme-ink px-4 text-[13px] font-bold tracking-wide uppercase">
           {title}
         </h2>
       ) : null}

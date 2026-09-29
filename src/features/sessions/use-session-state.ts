@@ -1,6 +1,6 @@
 import { useLogs } from '@/app/logs-store'
 import { getChoiceGroup, getSession } from '@/data/training-plan'
-import { resolveSessionState, type SessionState } from '@/domain/status'
+import { resolveChoiceGroup, resolveSessionState, type SessionState } from '@/domain/status'
 import type { PlannedSession, SessionLog, SessionStatus } from '@/domain/types'
 
 export function sessionStateFor(
@@ -37,4 +37,11 @@ export function dayStatus(
   if (logged.includes('modified')) return 'modified'
   if (logged.every((s) => s === 'skipped')) return 'skipped'
   return 'completed'
+}
+
+/** Status as listed: an either/or run shows the status of its whole group. */
+export function listedStatus(session: PlannedSession, logs: readonly SessionLog[]): SessionStatus {
+  return session.choiceGroupId
+    ? resolveChoiceGroup(getChoiceGroup(session.choiceGroupId), logs).status
+    : sessionStateFor(session, logs).status
 }

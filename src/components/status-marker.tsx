@@ -14,16 +14,29 @@ interface StatusMarkerProps {
   status: SessionStatus
   /** `pill` shows icon + text; `dot` shows only the icon with a screen-reader label. */
   variant?: 'pill' | 'dot'
+  /**
+   * `hero` sits on a session-colored hero: a translucent pill in the hero's own text color,
+   * so it stays readable on every type color.
+   */
+  tone?: 'default' | 'hero'
   className?: string
 }
 
 /** Status is always icon + text (or icon + accessible label), never color alone. */
-export function StatusMarker({ status, variant = 'pill', className }: StatusMarkerProps) {
+export function StatusMarker({
+  status,
+  variant = 'pill',
+  tone = 'default',
+  className,
+}: StatusMarkerProps) {
   const Icon = STATUS_ICON[status]
-  const colors = {
-    backgroundColor: `var(--status-${status})`,
-    color: `var(--status-${status}-fg)`,
-  }
+  const colors =
+    tone === 'hero'
+      ? {
+          backgroundColor: 'color-mix(in srgb, currentColor 16%, transparent)',
+          boxShadow: 'inset 0 0 0 1.5px color-mix(in srgb, currentColor 45%, transparent)',
+        }
+      : { backgroundColor: `var(--status-${status})`, color: `var(--status-${status}-fg)` }
 
   if (variant === 'dot') {
     return (
@@ -41,7 +54,7 @@ export function StatusMarker({ status, variant = 'pill', className }: StatusMark
     <span
       className={cn(
         'inline-flex h-7 items-center gap-1 rounded-full px-2.5 text-xs font-semibold',
-        status === 'planned' && 'ring-separator ring-1',
+        status === 'planned' && tone === 'default' && 'ring-separator ring-1',
         className,
       )}
       style={colors}

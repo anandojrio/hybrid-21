@@ -37,7 +37,7 @@ function Slider({
       >
         <SliderPrimitive.Range
           data-slot="slider-range"
-          className="bg-ocean absolute select-none data-horizontal:h-full data-vertical:w-full"
+          className="bg-theme absolute select-none data-horizontal:h-full data-vertical:w-full"
         />
       </SliderPrimitive.Track>
       {Array.from({ length: _values.length }, (_, index) => (
@@ -45,7 +45,7 @@ function Slider({
           data-slot="slider-thumb"
           key={index}
           aria-label={ariaLabel}
-          className="border-ocean ring-ocean/25 relative block size-7 shrink-0 rounded-full border-[3px] bg-white shadow-md transition-[box-shadow,transform] duration-(--dur-fast) select-none after:absolute after:-inset-2 focus-visible:ring-4 focus-visible:outline-hidden active:scale-110 active:ring-4 disabled:pointer-events-none disabled:opacity-50"
+          className="border-theme ring-theme/25 relative block size-7 shrink-0 rounded-full border-[3px] bg-white shadow-md transition-[box-shadow,transform] duration-(--dur-fast) select-none after:absolute after:-inset-2 focus-visible:ring-4 focus-visible:outline-hidden active:scale-110 active:ring-4 disabled:pointer-events-none disabled:opacity-50"
         />
       ))}
     </SliderPrimitive.Root>

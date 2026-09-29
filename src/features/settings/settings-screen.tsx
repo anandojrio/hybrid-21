@@ -171,13 +171,13 @@ export default function SettingsScreen() {
           </div>
         ) : null}
         <ListRow
-          leading={<Download aria-hidden className="text-ocean size-5" />}
+          leading={<Download aria-hidden className="text-theme-ink size-5" />}
           title={busy === 'backup' ? 'Preparing backup…' : 'Export backup (JSON)'}
           subtitle={`${logs.length} sessions · ${checkIns.length} check-ins`}
           onClick={busy ? undefined : () => void exportBackup()}
         />
         <ListRow
-          leading={<Upload aria-hidden className="text-ocean size-5" />}
+          leading={<Upload aria-hidden className="text-theme-ink size-5" />}
           title={busy === 'restore' ? 'Restoring…' : 'Restore from backup'}
           subtitle="Merges by ID; nothing is duplicated"
           onClick={busy ? undefined : () => fileInput.current?.click()}
@@ -221,7 +221,7 @@ export default function SettingsScreen() {
 
       <ListGroup title="Export" footer="Two files: sessions.csv and gym-exercises.csv.">
         <ListRow
-          leading={<FileSpreadsheet aria-hidden className="text-ocean size-5" />}
+          leading={<FileSpreadsheet aria-hidden className="text-theme-ink size-5" />}
           title={busy === 'csv' ? 'Preparing CSV…' : 'Export logs as CSV'}
           onClick={busy ? undefined : () => void exportCsv()}
         />
@@ -234,7 +234,7 @@ export default function SettingsScreen() {
       {isStandalone() ? null : (
         <ListGroup title="Install on iPhone">
           <ListRow
-            leading={<Smartphone aria-hidden className="text-ocean size-5" />}
+            leading={<Smartphone aria-hidden className="text-theme-ink size-5" />}
             title="Add to Home Screen"
             subtitle="Safari → Share → Add to Home Screen"
           />
