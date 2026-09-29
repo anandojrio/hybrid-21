@@ -21,6 +21,9 @@ Decided with the owner on 2026-09-29:
 - **Week strip (decided):** each day pill shows date, type-colored icons and a status marker; slugs are in the accessible label and in the day bottom sheet, not printed in the pill.
 - **Session icons (Lucide):** LEG Weight, RUN SportShoe, LONG Route, RACE Medal, ICE Snowflake (no hockey icon exists), PUSH BicepsFlexed, PULL Dumbbell, MOB Rotate3d, SOC Goal.
 - **Design preview:** `/design` route, development builds only.
+- **Logging UI (decided):** Mark as complete opens a full-height drawer form; status changes only after Save. Inside forms, quick single-item entries (gym exercise sets/reps/kg with "Last time", skip reason, morning check-in) use the owner-selected Animate UI Radix popover (`animate-ui.com/docs/components/radix/popover`), installed in the logging phase.
+- **CSV export (decided):** two files, `sessions.csv` (one row per logged session) and `gym-exercises.csv` (one row per exercise result).
+- **Backup reminder (decided):** shown when logs exist and no backup was made in the last 7 days.
 - **Component references:** seven-day strip with icons → `week-strip.jpg`; KPI tiles, big numbers with small decimals, dot-matrix charts → `screens-colors-kpi-nav.jpg`. Adapt them to the agreed palette.
 - **Animation library:** `motion` (Framer Motion) is approved; animations are tuned in a later polish pass.
 - **PULL high-fatigue and race-week variants:** the owner has none. Do not invent them; only PUSH has the fatigue contingency from section 10.

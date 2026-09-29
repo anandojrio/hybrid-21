@@ -241,3 +241,93 @@ export const exerciseResultSchema = z.discriminatedUnion('kind', [
     totalContacts: reps,
   }),
 ])
+
+// ---------------------------------------------------------------------------
+// Persisted records (validated on restore)
+// ---------------------------------------------------------------------------
+
+const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Expected YYYY-MM-DD')
+const isoDateTime = z.string().min(10)
+const optNum = (min: number, max: number) => z.number().min(min).max(max).optional()
+
+export const runResultSchema = z.object({
+  distanceKm: z.number().positive().max(100),
+  durationSec: z
+    .number()
+    .int()
+    .positive()
+    .max(24 * 3600),
+  avgPaceSecPerKm: z.number().positive().max(1800),
+  avgHr: z.number().int().min(30).max(240),
+  maxHr: z.number().int().min(30).max(250),
+  hrZonesSec: z
+    .tuple([
+      z.number().int().min(0).optional(),
+      z.number().int().min(0).optional(),
+      z.number().int().min(0).optional(),
+      z.number().int().min(0).optional(),
+      z.number().int().min(0).optional(),
+    ])
+    .optional(),
+  aerobicTe: optNum(0, 5),
+  anaerobicTe: optNum(0, 5),
+  avgPowerW: optNum(0, 2000),
+  totalAscentM: optNum(0, 10000),
+  avgCadenceSpm: optNum(0, 300),
+  rpe: z.number().int().min(1).max(10).optional(),
+  talkTest: z.enum(TALK_TEST_VALUES).optional(),
+  kneePainDuring: z.number().int().min(0).max(10).optional(),
+  kneePainAfter: z.number().int().min(0).max(10).optional(),
+})
+
+const logBase = {
+  id: z.string().min(1),
+  sessionId: z.string().min(1),
+  date: isoDate,
+  note: z.string().max(2000).optional(),
+  createdAt: isoDateTime,
+  updatedAt: isoDateTime,
+  seedVersion: z.number().int().positive().optional(),
+  derivedFields: z.array(z.string()).optional(),
+}
+
+export const sessionLogSchema = z.discriminatedUnion('kind', [
+  z.object({
+    ...logBase,
+    kind: z.literal('skip'),
+    status: z.literal('skipped'),
+    reason: z.enum(SKIP_REASONS),
+  }),
+  z.object({ ...logBase, kind: z.literal('simple'), status: z.literal('completed') }),
+  z.object({
+    ...logBase,
+    kind: z.literal('gym'),
+    status: z.enum(['completed', 'modified']),
+    exercises: z.array(exerciseResultSchema),
+  }),
+  z.object({
+    ...logBase,
+    kind: z.literal('run'),
+    status: z.enum(['completed', 'modified']),
+    result: runResultSchema,
+  }),
+  z.object({
+    ...logBase,
+    kind: z.literal('mobility'),
+    status: z.enum(['completed', 'modified']),
+    coreSession: z.enum(['A', 'B']),
+    asPrescribed: z.boolean(),
+    durationMin: z.number().int().min(1).max(600).optional(),
+  }),
+])
+
+export const morningCheckInRecordSchema = z.object({
+  id: z.string().min(1),
+  sessionId: z.string().min(1),
+  date: isoDate,
+  kneePainNextMorning: z.number().int().min(0).max(10).optional(),
+  soreness: z.number().int().min(0).max(10).optional(),
+  energy: z.number().int().min(1).max(5).optional(),
+  createdAt: isoDateTime,
+  updatedAt: isoDateTime,
+})
