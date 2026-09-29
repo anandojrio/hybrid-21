@@ -1,35 +1,17 @@
-import { lazy, Suspense } from 'react'
+import { MotionConfig } from 'motion/react'
 import { createBrowserRouter, RouterProvider } from 'react-router'
+import { routes } from './app/routes'
+import { StorageProvider } from './app/storage-provider'
 
-const DesignShowcase = import.meta.env.DEV
-  ? lazy(() => import('./features/design/design-showcase'))
-  : null
-
-function Placeholder() {
-  return (
-    <main className="mx-auto min-h-dvh max-w-(--app-max-width) p-4">
-      <h1 className="font-display text-2xl font-semibold">Hybrid 21</h1>
-      <p className="text-ink-muted mt-2 text-base">The app shell arrives in Phase 5.</p>
-    </main>
-  )
-}
-
-const router = createBrowserRouter([
-  { path: '/', element: <Placeholder /> },
-  ...(DesignShowcase
-    ? [
-        {
-          path: '/design',
-          element: (
-            <Suspense fallback={null}>
-              <DesignShowcase />
-            </Suspense>
-          ),
-        },
-      ]
-    : []),
-])
+const router = createBrowserRouter(routes)
 
 export default function App() {
-  return <RouterProvider router={router} />
+  return (
+    // "user" honours prefers-reduced-motion for every motion animation.
+    <MotionConfig reducedMotion="user">
+      <StorageProvider>
+        <RouterProvider router={router} />
+      </StorageProvider>
+    </MotionConfig>
+  )
 }
