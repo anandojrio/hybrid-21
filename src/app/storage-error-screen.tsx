@@ -1,4 +1,4 @@
-import { DatabaseZap } from 'lucide-react'
+import { BrandLogo } from '@/components/brand-logo'
 import { Button } from '@/components/ui/button'
 
 interface StorageErrorScreenProps {
@@ -13,8 +13,8 @@ export function StorageErrorScreen({ message, onRetry }: StorageErrorScreenProps
       role="alert"
       className="mx-auto flex min-h-dvh max-w-(--app-max-width) flex-col justify-center gap-5 px-6 pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
     >
-      <span className="bg-charcoal text-mint flex size-14 items-center justify-center rounded-full">
-        <DatabaseZap aria-hidden className="size-7" />
+      <span className="bg-charcoal flex h-16 w-28 items-center justify-center rounded-2xl">
+        <BrandLogo variant="mark" decorative className="h-9" />
       </span>
       <h1 className="font-display text-3xl font-bold tracking-tight">Storage unavailable</h1>
       <p className="text-ink text-base">{message}</p>

@@ -40,6 +40,7 @@ export default function TodayScreen() {
     <>
       <ScreenHeader
         title="Today"
+        brand
         subtitle={`${formatIsoDate(today, 'EEEE, MMMM d')}${week ? ` · Week ${week.week}` : ''}`}
       >
         {week ? (

@@ -6,6 +6,7 @@ import { useLogs } from '@/app/logs-store'
 import { useMotionPreference } from '@/app/motion-preference'
 import { Segmented } from '@/components/form-controls'
 import { useRepositories } from '@/app/storage-provider'
+import { BrandLogo } from '@/components/brand-logo'
 import { ListGroup, ListRow } from '@/components/list-group'
 import { ScreenHeader } from '@/components/screen-header'
 import {
@@ -260,6 +261,11 @@ export default function SettingsScreen() {
           />
         </ListGroup>
       )}
+
+      <div className="bg-charcoal flex flex-col items-center gap-2 rounded-(--radius-group) px-6 pt-7 pb-6">
+        <BrandLogo className="w-44" />
+        <p className="text-mint text-sm font-semibold">Hybrid 21 · half-marathon Dec 12, 2026</p>
+      </div>
 
       <ListGroup title="About" footer="Planned sessions are read-only. Works offline.">
         <ListRow title="Hybrid 21" trailing="MVP" />

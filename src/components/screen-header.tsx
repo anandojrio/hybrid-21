@@ -2,6 +2,7 @@ import { ChevronLeft, Settings } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router'
 import { cn } from 'cn'
+import { BrandLogo } from '@/components/brand-logo'
 import { Button } from '@/components/ui/button'
 
 interface ScreenHeaderProps {
@@ -10,6 +11,8 @@ interface ScreenHeaderProps {
   subtitle?: ReactNode
   /** Tab screens show the Settings button; pushed screens show Back. */
   variant?: 'tab' | 'pushed'
+  /** Shows the emblem above the eyebrow (Today only). */
+  brand?: boolean
   /** Extra content inside the hero, below the title (e.g. focus line, chips). */
   children?: ReactNode
   className?: string
@@ -23,6 +26,7 @@ export function ScreenHeader({
   title,
   subtitle,
   variant = 'tab',
+  brand = false,
   children,
   className,
 }: ScreenHeaderProps) {
@@ -50,6 +54,7 @@ export function ScreenHeader({
           </Button>
         ) : null}
         <div className="min-w-0 flex-1">
+          {brand ? <BrandLogo variant="mark" decorative className="mb-3 h-9" /> : null}
           {subtitle ? <p className="text-mint tabular text-sm font-semibold">{subtitle}</p> : null}
           <h1 className="font-display truncate text-[34px] leading-tight font-bold tracking-tight">
             {title}
