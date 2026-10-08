@@ -142,11 +142,11 @@ function buildWeek(planWeek: PlanWeek): PlannedSession[] {
           : undefined),
     })
 
-  const iceSession = (day: 'wed' | 'thu') =>
+  const iceSession = (day: 'wed' | 'thu', order = 1) =>
     push({
       id: `w${w}-${day}-ice`,
       date: date(day === 'wed' ? 2 : 3),
-      order: 1,
+      order,
       type: 'ice',
       title: 'Ice Hockey',
       goal: 'Ice hockey session.',
@@ -192,10 +192,11 @@ function buildWeek(planWeek: PlanWeek): PlannedSession[] {
     midweekRun('wed', 2)
     iceSession('thu')
   } else if (week >= HOCKEY_THURSDAY_FROM_WEEK) {
-    // Transition week: Wednesday hockey already played, Thursday hockey from Oct 8;
-    // the Thursday PUSH and run make way and are not made up.
+    // Transition week: Wednesday hockey already played; Thursday Oct 8 keeps PUSH (done
+    // in the gym before evening hockey) and drops its run.
     iceSession('wed')
-    iceSession('thu')
+    pushSession('thu', 1)
+    iceSession('thu', 2)
   } else {
     // Wednesday — ICE; Thursday — PUSH plus easy RUN (or football)
     iceSession('wed')

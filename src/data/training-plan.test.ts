@@ -78,12 +78,13 @@ describe('canonical training plan', () => {
       '6:long',
       '7:ice',
     ])
-    // Transition week: Wednesday hockey was played, Thursday hockey from Oct 8, no make-up.
+    // Transition week: Wednesday hockey was played; Oct 8 keeps PUSH, then hockey, no run.
     expect(dayTypes(3)).toEqual([
       '1:leg',
       '2:run',
       '2:mob',
       '3:ice',
+      '4:push',
       '4:ice',
       '5:pull',
       '6:long',
@@ -159,7 +160,7 @@ describe('canonical training plan', () => {
   it('places PUSH before the midweek run and MOB after the Tuesday run', () => {
     expect(getSessionsForDate('2026-10-01').map((s) => s.type)).toEqual(['push', 'run', 'soc'])
     expect(getSessionsForDate('2026-10-21').map((s) => s.type)).toEqual(['push', 'run', 'soc'])
-    expect(getSessionsForDate('2026-10-08').map((s) => s.type)).toEqual(['ice'])
+    expect(getSessionsForDate('2026-10-08').map((s) => s.type)).toEqual(['push', 'ice'])
     expect(getSessionsForDate('2026-09-29').map((s) => s.type)).toEqual(['run', 'mob'])
   })
 

@@ -53,6 +53,6 @@ describe('calendar event derivation', () => {
     const upcoming = deriveCalendarEvents(PLANNED_SESSIONS, { from: '2026-09-29' })
     expect(upcoming[0]).toMatchObject({ key: 'w02-tue-run', date: '2026-09-29' })
     expect(upcoming.every((e) => e.date >= '2026-09-29')).toBe(true)
-    expect(upcoming).toHaveLength(96)
+    expect(upcoming).toHaveLength(97)
   })
 })
