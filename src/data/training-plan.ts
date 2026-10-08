@@ -10,13 +10,13 @@ export const TOTAL_WEEKS = 12
 const WEEK_FOCUS: Record<number, Pick<PlanWeek, 'focus' | 'cutback' | 'taper'>> = {
   1: { focus: 'Establish tolerance' },
   2: { focus: 'Confirm knee/tissue response' },
-  3: { focus: 'Introduce moderate work' },
-  4: { focus: 'Cutback', cutback: true },
-  5: { focus: 'Extend controlled work' },
-  6: { focus: 'Aerobic strength' },
-  7: { focus: 'Cutback', cutback: true },
-  8: { focus: 'Start race-specific block' },
-  9: { focus: 'Race-specific endurance' },
+  3: { focus: 'Recover from illness' },
+  4: { focus: 'Rebuild after illness' },
+  5: { focus: 'Introduce moderate work' },
+  6: { focus: 'Extend controlled work' },
+  7: { focus: 'Aerobic strength' },
+  8: { focus: 'Cutback', cutback: true },
+  9: { focus: 'Start race-specific block' },
   10: { focus: 'Peak week' },
   11: { focus: 'Reduce volume', taper: true },
   12: { focus: 'Taper and race', taper: true },
@@ -37,6 +37,19 @@ export const PLAN_WEEKS: readonly PlanWeek[] = Array.from({ length: TOTAL_WEEKS 
 })
 
 const pad = (week: number) => String(week).padStart(2, '0')
+
+/**
+ * Hockey moved from Wednesday to Thursday on 2026-10-08 (week 3). Weeks 1–2 keep their
+ * original layout so logged history still matches; from week 4 PUSH and the midweek run
+ * are on Wednesday and hockey is on Thursday.
+ */
+const HOCKEY_THURSDAY_FROM_WEEK = 3
+const WEDNESDAY_MIDWEEK_FROM_WEEK = 4
+
+/** First week back after illness: lighter gym work. */
+const REBUILD_WEEK = 4
+const REBUILD_GYM_NOTE =
+  'Back from illness: about 2/3 of the sets at RIR 3; no load increases this week.'
 
 function runEntry(week: number, slot: RunSlot): RunPlanEntry {
   const entry = RUNNING_PLAN.find((e) => e.week === week && e.slot === slot)
@@ -62,7 +75,8 @@ function buildWeek(planWeek: PlanWeek): PlannedSession[] {
   const { week, start, focus } = planWeek
   const w = pad(week)
   const date = (offset: number) => addDays(start, offset)
-  const twoSetsAllowed = week <= 2 || Boolean(planWeek.cutback || planWeek.taper)
+  const twoSetsAllowed = week <= REBUILD_WEEK || Boolean(planWeek.cutback || planWeek.taper)
+  const gymNote = week === REBUILD_WEEK ? REBUILD_GYM_NOTE : undefined
   const sessions: PlannedSession[] = []
 
   const push = (s: Omit<PlannedSession, 'week' | 'dayOfWeek'>) =>
@@ -77,6 +91,7 @@ function buildWeek(planWeek: PlanWeek): PlannedSession[] {
     title: 'Leg Strength',
     goal: 'Lower-body strength: squat, hinge, single-leg work, hamstrings, calves and adductors.',
     templateId: legTemplate(week),
+    coachingNote: gymNote,
   })
 
   // Tuesday — RUN, then MOB later in the day
@@ -111,51 +126,81 @@ function buildWeek(planWeek: PlanWeek): PlannedSession[] {
         : undefined,
   })
 
-  // Wednesday — ICE
-  push({
-    id: `w${w}-wed-ice`,
-    date: date(2),
-    order: 1,
-    type: 'ice',
-    title: 'Ice Hockey',
-    goal: 'Ice hockey session.',
-  })
-
-  // Thursday — PUSH plus easy RUN (or SOC where prescribed)
-  push({
-    id: `w${w}-thu-push`,
-    date: date(3),
-    order: 1,
-    type: 'push',
-    title: 'Upper Body',
-    goal: 'Chest, biceps and front-shoulder strength; bench press is the main measurable lift.',
-    templateId: 'push',
-  })
-  const thu = runEntry(week, 'thu')
-  const choiceGroupId = thu.orSoccer ? `w${w}-thu-choice` : undefined
-  push({
-    id: `w${w}-thu-run`,
-    date: thu.date,
-    order: 2,
-    type: 'run',
-    title: thu.title,
-    goal: focus,
-    run: thu.run,
-    choiceGroupId,
-    offAllowed: thu.offAllowed,
-    coachingNote: runNote(thu),
-  })
-  if (thu.orSoccer) {
+  const pushSession = (day: 'wed' | 'thu', order: number) =>
     push({
-      id: `w${w}-thu-soc`,
-      date: thu.date,
-      order: 3,
-      type: 'soc',
-      title: 'Football',
-      goal: 'Optional football instead of the Thursday run.',
-      choiceGroupId,
-      coachingNote: 'Football replaces the easy run; it is never added on top.',
+      id: `w${w}-${day}-push`,
+      date: date(day === 'wed' ? 2 : 3),
+      order,
+      type: 'push',
+      title: 'Upper Body',
+      goal: 'Chest, biceps and front-shoulder strength; bench press is the main measurable lift.',
+      templateId: 'push',
+      coachingNote:
+        gymNote ??
+        (week === TOTAL_WEEKS
+          ? 'Race week: use the lighter A-week contingency (bench 4 × 4–6, incline 2–3 sets, no shoulder press).'
+          : undefined),
     })
+
+  const iceSession = (day: 'wed' | 'thu') =>
+    push({
+      id: `w${w}-${day}-ice`,
+      date: date(day === 'wed' ? 2 : 3),
+      order: 1,
+      type: 'ice',
+      title: 'Ice Hockey',
+      goal: 'Ice hockey session.',
+      coachingNote:
+        week === TOTAL_WEEKS && day === 'thu'
+          ? 'Two days before the race: an easy skate or skip it.'
+          : undefined,
+    })
+
+  // Midweek run (Thursday in weeks 1–2, Wednesday from week 4), optionally football.
+  const midweekRun = (slot: 'wed' | 'thu', order: number) => {
+    const entry = runEntry(week, slot)
+    const choiceGroupId = entry.orSoccer ? `w${w}-${slot}-choice` : undefined
+    push({
+      id: `w${w}-${slot}-run`,
+      date: entry.date,
+      order,
+      type: 'run',
+      title: entry.title,
+      goal: focus,
+      run: entry.run,
+      choiceGroupId,
+      offAllowed: entry.offAllowed,
+      coachingNote: runNote(entry),
+    })
+    if (entry.orSoccer) {
+      push({
+        id: `w${w}-${slot}-soc`,
+        date: entry.date,
+        order: order + 1,
+        type: 'soc',
+        title: 'Football',
+        goal: 'Optional football instead of the midweek run.',
+        choiceGroupId,
+        coachingNote: 'Football replaces the easy run; it is never added on top.',
+      })
+    }
+  }
+
+  if (week >= WEDNESDAY_MIDWEEK_FROM_WEEK) {
+    // Wednesday — PUSH plus easy RUN (or football); Thursday — ICE
+    pushSession('wed', 1)
+    midweekRun('wed', 2)
+    iceSession('thu')
+  } else if (week >= HOCKEY_THURSDAY_FROM_WEEK) {
+    // Transition week: Wednesday hockey already played, Thursday hockey from Oct 8;
+    // the Thursday PUSH and run make way and are not made up.
+    iceSession('wed')
+    iceSession('thu')
+  } else {
+    // Wednesday — ICE; Thursday — PUSH plus easy RUN (or football)
+    iceSession('wed')
+    pushSession('thu', 1)
+    midweekRun('thu', 2)
   }
 
   // Friday — PULL
@@ -167,6 +212,7 @@ function buildWeek(planWeek: PlanWeek): PlannedSession[] {
     title: 'Upper Body',
     goal: 'Back, triceps and rear/lateral shoulder strength; pull-ups are the main measurable lift.',
     templateId: 'pull',
+    coachingNote: gymNote,
   })
 
   // Saturday — LONG, or RACE on race day
@@ -218,7 +264,7 @@ export function getSessionsForDate(date: IsoDate): PlannedSession[] {
 }
 
 /**
- * Sessions as the UI lists them: an either/or Thursday shows as its run only, because
+ * Sessions as the UI lists them: an either/or midweek run shows as the run only, because
  * football is chosen inside the run's form.
  */
 export function getVisibleSessionsForDate(date: IsoDate): PlannedSession[] {

@@ -31,7 +31,7 @@ export function LogForm({ session, onClose }: LogFormProps) {
 
   const onDirtyChange = useCallback((value: boolean) => setDirty(value), [])
 
-  // Thursday either/or: the run form can record football instead (never both).
+  // Midweek either/or: the run form can record football instead (never both).
   const football =
     session.choiceGroupId && !editing
       ? getChoiceGroup(session.choiceGroupId).find((s) => s.type === 'soc')

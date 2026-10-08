@@ -102,8 +102,8 @@ export function SessionCard({ session, today, onLog }: CardProps & { session: Pl
 }
 
 /**
- * Thursday either/or: shown as the run, with football as an option inside its form.
- * The group status covers both, so football counts as the Thursday session.
+ * Midweek either/or: shown as the run, with football as an option inside its form.
+ * The group status covers both, so football counts as the midweek session.
  */
 export function ChoiceCard({ choiceGroupId, today, onLog }: CardProps & { choiceGroupId: string }) {
   const group = getChoiceGroup(choiceGroupId)

@@ -141,7 +141,7 @@ export function SessionActions({
 }
 
 /**
- * Thursday either/or: "Mark as complete" opens the run form, which can record football
+ * Midweek either/or: "Mark as complete" opens the run form, which can record football
  * instead. Skipping records the skip on the run and covers the whole group.
  */
 export function ChoiceActions({

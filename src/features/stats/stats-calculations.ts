@@ -94,7 +94,7 @@ function isDue(session: PlannedSession, logs: readonly SessionLog[], today: IsoD
 }
 
 /**
- * Running compliance up to `today`. An either/or Thursday counts once and is satisfied by
+ * Running compliance up to `today`. An either/or midweek run counts once and is satisfied by
  * football; a skipped run the plan marks "or off" counts as done.
  */
 export function runCompliance(logs: readonly SessionLog[], today: IsoDate): Compliance {
@@ -118,7 +118,7 @@ export function runCompliance(logs: readonly SessionLog[], today: IsoDate): Comp
   return { done, due }
 }
 
-/** Planned running slots in a week; an either/or Thursday counts once. */
+/** Planned running slots in a week; an either/or midweek run counts once. */
 export function plannedRunUnits(week: number): number {
   const units = new Set(
     PLANNED_SESSIONS.filter((s) => s.week === week && RUN_TYPES.has(s.type)).map(

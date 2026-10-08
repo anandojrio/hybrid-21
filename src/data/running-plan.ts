@@ -67,7 +67,7 @@ export const RUN_COACHING_RULES: readonly string[] = [
   'Do not speed up in the final five minutes of an easy session just to improve the average.',
   'Walking for 30–60 seconds is allowed if HR rises unexpectedly or tissue discomfort develops.',
   'If knee pain exceeds 2/10, changes gait, is sharp, causes swelling/instability, or is worse next morning, reduce/stop and seek professional assessment when appropriate.',
-  'Football replaces the prescribed optional Thursday run; it is never added on top.',
+  'Football replaces the prescribed optional midweek run; it is never added on top.',
   'The app never rewrites the plan based on logged data.',
 ]
 
@@ -84,6 +84,20 @@ const recovery = (min: number, max: number = min): RunSegment => ({
   intensity: 'recovery',
   minutes: r(min, max),
 })
+type IntervalIntensity = Extract<RunSegment, { kind: 'intervals' }>['intensity']
+
+const intervals = (
+  warm: number,
+  reps: number,
+  minutes: number,
+  intensity: IntervalIntensity,
+  recoveryMinutes: number,
+  cool: number,
+): RunSegment[] => [
+  easy(warm),
+  { kind: 'intervals', reps, minutes, intensity, recoveryMinutes },
+  easy(cool),
+]
 const strides = (min: number, max: number, optional: boolean): RunSegment => ({
   kind: 'strides',
   reps: r(min, max),
@@ -91,7 +105,8 @@ const strides = (min: number, max: number, optional: boolean): RunSegment => ({
   optional,
 })
 
-export type RunSlot = 'tue' | 'thu' | 'sat'
+/** Weeks 1–3 ran Tue/Thu/Sat; from week 4 the midweek run is on Wednesday (hockey moved to Thursday). */
+export type RunSlot = 'tue' | 'wed' | 'thu' | 'sat'
 
 export interface RunPlanEntry {
   week: number
@@ -99,7 +114,7 @@ export interface RunPlanEntry {
   date: IsoDate
   title: string
   run: RunPrescription
-  /** Thursday either/or with football. */
+  /** Either/or with football (Thursday in weeks 1–3, Wednesday from week 4). */
   orSoccer?: boolean
   /** Plan allows taking the day off instead. */
   offAllowed?: boolean
@@ -208,31 +223,19 @@ export const RUNNING_PLAN: readonly RunPlanEntry[] = [
   },
   {
     week: 3,
-    slot: 'thu',
-    date: '2026-10-08',
-    title: 'Easy 30 min',
-    orSoccer: true,
-    run: {
-      prescription: '30 min easy at 130–145 bpm, or football',
-      primaryIntensity: 'easy',
-      segments: [easy(30)],
-      hr: EASY_HR,
-    },
-  },
-  {
-    week: 3,
     slot: 'sat',
     date: '2026-10-10',
-    title: 'Easy 60 min',
+    title: 'Easy 45 min',
     run: {
-      prescription: '60 min easy at 130–145 bpm',
+      prescription: '45 min easy at 130–145 bpm (shortened from 60 after illness)',
       primaryIntensity: 'easy',
-      segments: [easy(60)],
+      segments: [easy(45)],
       hr: EASY_HR,
+      conditionalNote: 'First run back after illness: keep it fully conversational.',
     },
   },
 
-  // Week 4 — Cutback
+  // Week 4 — Rebuild after illness (second run on Wednesday from here on; hockey moved to Thursday)
   {
     week: 4,
     slot: 'tue',
@@ -242,18 +245,19 @@ export const RUNNING_PLAN: readonly RunPlanEntry[] = [
       prescription: '35 min easy + 4–6 × 15 s relaxed strides',
       primaryIntensity: 'easy',
       segments: [easy(35), strides(4, 6, false)],
+      hr: EASY_HR,
     },
   },
   {
     week: 4,
-    slot: 'thu',
-    date: '2026-10-15',
-    title: 'Recovery/Easy 25 min',
-    offAllowed: true,
+    slot: 'wed',
+    date: '2026-10-14',
+    title: 'Easy 25 min',
     run: {
-      prescription: '25 min recovery/easy or off',
-      primaryIntensity: 'recovery',
-      segments: [recovery(25)],
+      prescription: '25 min easy at 130–145 bpm',
+      primaryIntensity: 'easy',
+      segments: [easy(25)],
+      hr: EASY_HR,
     },
   },
   {
@@ -269,40 +273,77 @@ export const RUNNING_PLAN: readonly RunPlanEntry[] = [
     },
   },
 
-  // Week 5 — Extend controlled work
+  // Week 5 — Introduce moderate work
   {
     week: 5,
     slot: 'tue',
     date: '2026-10-20',
-    title: '3 × 7 min Steady',
+    title: '3 × 5 min Steady',
     run: {
       prescription:
-        '10 min easy + 3 × 7 min steady at 146–158 bpm, 2 min easy between + 10 min easy',
+        '10 min easy + 3 × 5 min steady at 146–158 bpm, 2 min easy between + 10 min easy',
       primaryIntensity: 'steady',
-      segments: [
-        easy(10),
-        { kind: 'intervals', reps: 3, minutes: 7, intensity: 'steady', recoveryMinutes: 2 },
-        easy(10),
-      ],
+      segments: intervals(10, 3, 5, 'steady', 2, 10),
       hr: r(146, 158),
     },
   },
   {
     week: 5,
-    slot: 'thu',
-    date: '2026-10-22',
-    title: 'Easy 30–35 min',
+    slot: 'wed',
+    date: '2026-10-21',
+    title: 'Easy 30 min',
     orSoccer: true,
     run: {
-      prescription: '30–35 min easy, or football',
+      prescription: '30 min easy at 130–145 bpm, or football',
       primaryIntensity: 'easy',
-      segments: [easy(30, 35)],
+      segments: [easy(30)],
+      hr: EASY_HR,
     },
   },
   {
     week: 5,
     slot: 'sat',
     date: '2026-10-24',
+    title: 'Easy 60 min',
+    run: {
+      prescription: '60 min easy at 130–145 bpm',
+      primaryIntensity: 'easy',
+      segments: [easy(60)],
+      hr: EASY_HR,
+    },
+  },
+
+  // Week 6 — Extend controlled work
+  {
+    week: 6,
+    slot: 'tue',
+    date: '2026-10-27',
+    title: '3 × 7 min Steady',
+    run: {
+      prescription:
+        '10 min easy + 3 × 7 min steady at 146–158 bpm, 2 min easy between + 10 min easy',
+      primaryIntensity: 'steady',
+      segments: intervals(10, 3, 7, 'steady', 2, 10),
+      hr: r(146, 158),
+    },
+  },
+  {
+    week: 6,
+    slot: 'wed',
+    date: '2026-10-28',
+    title: 'Easy 30–35 min',
+    orSoccer: true,
+    run: {
+      prescription: '30–35 min easy, or football',
+      primaryIntensity: 'easy',
+      segments: [easy(30, 35)],
+      hr: EASY_HR,
+    },
+  },
+  {
+    week: 6,
+    slot: 'sat',
+    date: '2026-10-31',
     title: 'Easy 70 min',
     run: {
       prescription: '70 min easy at 130–145 bpm',
@@ -312,40 +353,37 @@ export const RUNNING_PLAN: readonly RunPlanEntry[] = [
     },
   },
 
-  // Week 6 — Aerobic strength
+  // Week 7 — Aerobic strength
   {
-    week: 6,
+    week: 7,
     slot: 'tue',
-    date: '2026-10-27',
+    date: '2026-11-03',
     title: '2 × 10 min Upper-steady',
     run: {
       prescription:
         '10 min easy + 2 × 10 min upper-steady at 152–164 bpm, 3 min easy between + 10 min easy',
       primaryIntensity: 'upperSteady',
-      segments: [
-        easy(10),
-        { kind: 'intervals', reps: 2, minutes: 10, intensity: 'upperSteady', recoveryMinutes: 3 },
-        easy(10),
-      ],
+      segments: intervals(10, 2, 10, 'upperSteady', 3, 10),
       hr: r(152, 164),
     },
   },
   {
-    week: 6,
-    slot: 'thu',
-    date: '2026-10-29',
+    week: 7,
+    slot: 'wed',
+    date: '2026-11-04',
     title: 'Easy 35 min',
     orSoccer: true,
     run: {
       prescription: '35 min easy, or football',
       primaryIntensity: 'easy',
       segments: [easy(35)],
+      hr: EASY_HR,
     },
   },
   {
-    week: 6,
+    week: 7,
     slot: 'sat',
-    date: '2026-10-31',
+    date: '2026-11-07',
     title: 'Easy 80 min',
     run: {
       prescription: '80 min easy at 130–145 bpm',
@@ -355,34 +393,36 @@ export const RUNNING_PLAN: readonly RunPlanEntry[] = [
     },
   },
 
-  // Week 7 — Cutback
+  // Week 8 — Cutback
   {
-    week: 7,
+    week: 8,
     slot: 'tue',
-    date: '2026-11-03',
+    date: '2026-11-10',
     title: 'Easy 40 min + strides',
     run: {
       prescription: '40 min easy + 4–6 × 15 s relaxed strides',
       primaryIntensity: 'easy',
       segments: [easy(40), strides(4, 6, false)],
+      hr: EASY_HR,
     },
   },
   {
-    week: 7,
-    slot: 'thu',
-    date: '2026-11-05',
+    week: 8,
+    slot: 'wed',
+    date: '2026-11-11',
     title: 'Recovery/Easy 25–30 min',
     offAllowed: true,
     run: {
       prescription: '25–30 min recovery/easy or off',
       primaryIntensity: 'recovery',
       segments: [recovery(25, 30)],
+      hr: RECOVERY_EASY_HR,
     },
   },
   {
-    week: 7,
+    week: 8,
     slot: 'sat',
-    date: '2026-11-07',
+    date: '2026-11-14',
     title: 'Easy 65 min',
     run: {
       prescription: '65 min easy at 130–145 bpm',
@@ -392,40 +432,37 @@ export const RUNNING_PLAN: readonly RunPlanEntry[] = [
     },
   },
 
-  // Week 8 — Start race-specific block
+  // Week 9 — Start race-specific block
   {
-    week: 8,
+    week: 9,
     slot: 'tue',
-    date: '2026-11-10',
+    date: '2026-11-17',
     title: '3 × 8 min Threshold',
     run: {
       prescription:
         '12 min easy + 3 × 8 min controlled threshold at 164–175 bpm, 3 min easy between + 10 min easy',
       primaryIntensity: 'threshold',
-      segments: [
-        easy(12),
-        { kind: 'intervals', reps: 3, minutes: 8, intensity: 'threshold', recoveryMinutes: 3 },
-        easy(10),
-      ],
+      segments: intervals(12, 3, 8, 'threshold', 3, 10),
       hr: r(164, 175),
     },
   },
   {
-    week: 8,
-    slot: 'thu',
-    date: '2026-11-12',
+    week: 9,
+    slot: 'wed',
+    date: '2026-11-18',
     title: 'Easy 35 min',
+    orSoccer: true,
     run: {
-      prescription: '35 min easy at 130–145 bpm',
+      prescription: '35 min easy at 130–145 bpm, or football',
       primaryIntensity: 'easy',
       segments: [easy(35)],
       hr: EASY_HR,
     },
   },
   {
-    week: 8,
+    week: 9,
     slot: 'sat',
-    date: '2026-11-14',
+    date: '2026-11-21',
     title: 'Easy 90 min',
     run: {
       prescription: '90 min easy at 130–145 bpm',
@@ -435,85 +472,42 @@ export const RUNNING_PLAN: readonly RunPlanEntry[] = [
     },
   },
 
-  // Week 9 — Race-specific endurance
+  // Week 10 — Peak week
   {
-    week: 9,
+    week: 10,
     slot: 'tue',
-    date: '2026-11-17',
+    date: '2026-11-24',
     title: '2 × 12 min HM effort',
     run: {
       prescription:
         '12 min easy + 2 × 12 min HM effort at 158–170 bpm, 4 min easy between + 10 min easy',
       primaryIntensity: 'hmEffort',
-      segments: [
-        easy(12),
-        { kind: 'intervals', reps: 2, minutes: 12, intensity: 'hmEffort', recoveryMinutes: 4 },
-        easy(10),
-      ],
+      segments: intervals(12, 2, 12, 'hmEffort', 4, 10),
       hr: r(158, 170),
     },
   },
   {
-    week: 9,
-    slot: 'thu',
-    date: '2026-11-19',
+    week: 10,
+    slot: 'wed',
+    date: '2026-11-25',
     title: 'Easy 35–40 min',
     orSoccer: true,
     run: {
       prescription: '35–40 min easy, or football',
       primaryIntensity: 'easy',
       segments: [easy(35, 40)],
-    },
-  },
-  {
-    week: 9,
-    slot: 'sat',
-    date: '2026-11-21',
-    title: 'Easy 95 min',
-    run: {
-      prescription: '95 min easy; final 10 min steady only if fresh',
-      primaryIntensity: 'easy',
-      segments: [easy(95)],
-      conditionalNote: 'Final 10 min steady only if fresh.',
-    },
-  },
-
-  // Week 10 — Peak week
-  {
-    week: 10,
-    slot: 'tue',
-    date: '2026-11-24',
-    title: '3 × 10 min HM effort',
-    run: {
-      prescription: '12 min easy + 3 × 10 min HM effort, 3 min easy between + 10 min easy',
-      primaryIntensity: 'hmEffort',
-      segments: [
-        easy(12),
-        { kind: 'intervals', reps: 3, minutes: 10, intensity: 'hmEffort', recoveryMinutes: 3 },
-        easy(10),
-      ],
-    },
-  },
-  {
-    week: 10,
-    slot: 'thu',
-    date: '2026-11-26',
-    title: 'Easy 30–35 min',
-    run: {
-      prescription: '30–35 min easy',
-      primaryIntensity: 'easy',
-      segments: [easy(30, 35)],
+      hr: EASY_HR,
     },
   },
   {
     week: 10,
     slot: 'sat',
     date: '2026-11-28',
-    title: 'Easy 100–105 min',
+    title: 'Easy 95–100 min',
     run: {
-      prescription: '100–105 min easy at 130–145 bpm',
+      prescription: '95–100 min easy; final 10 min steady only if fresh',
       primaryIntensity: 'easy',
-      segments: [easy(100, 105)],
+      segments: [easy(95, 100)],
       hr: EASY_HR,
     },
   },
@@ -523,26 +517,24 @@ export const RUNNING_PLAN: readonly RunPlanEntry[] = [
     week: 11,
     slot: 'tue',
     date: '2026-12-01',
-    title: '2 × 8 min HM effort',
+    title: '3 × 8 min HM effort',
     run: {
-      prescription: '10 min easy + 2 × 8 min HM effort, 3 min easy between + 10 min easy',
+      prescription: '12 min easy + 3 × 8 min HM effort, 3 min easy between + 10 min easy',
       primaryIntensity: 'hmEffort',
-      segments: [
-        easy(10),
-        { kind: 'intervals', reps: 2, minutes: 8, intensity: 'hmEffort', recoveryMinutes: 3 },
-        easy(10),
-      ],
+      segments: intervals(12, 3, 8, 'hmEffort', 3, 10),
+      hr: r(158, 170),
     },
   },
   {
     week: 11,
-    slot: 'thu',
-    date: '2026-12-03',
+    slot: 'wed',
+    date: '2026-12-02',
     title: 'Easy 25–30 min',
     run: {
       prescription: '25–30 min easy',
       primaryIntensity: 'easy',
       segments: [easy(25, 30)],
+      hr: EASY_HR,
     },
   },
   {
@@ -554,6 +546,7 @@ export const RUNNING_PLAN: readonly RunPlanEntry[] = [
       prescription: '65–70 min easy',
       primaryIntensity: 'easy',
       segments: [easy(65, 70)],
+      hr: EASY_HR,
     },
   },
 
@@ -571,8 +564,8 @@ export const RUNNING_PLAN: readonly RunPlanEntry[] = [
   },
   {
     week: 12,
-    slot: 'thu',
-    date: '2026-12-10',
+    slot: 'wed',
+    date: '2026-12-09',
     title: 'Very easy 20 min',
     offAllowed: true,
     run: {

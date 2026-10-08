@@ -75,14 +75,14 @@ describe('running stats', () => {
   it('treats a skipped "or off" run as compliant', () => {
     const offSkip: SessionLog = {
       id: 'o',
-      sessionId: 'w04-thu-run',
-      date: '2026-10-15',
+      sessionId: 'w08-wed-run',
+      date: '2026-11-11',
       kind: 'skip',
       status: 'skipped',
       reason: 'fatigue',
       ...stamps,
     }
-    const { done } = runCompliance([offSkip], '2026-10-15')
+    const { done } = runCompliance([offSkip], '2026-11-11')
     expect(done).toBe(1)
   })
 
